@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Study!</string>
+    <string name="topic">Topics</string>
+    <string name="progress">Progress</string>
+    <string name="app_settings">App Settings</string>
+    <string name="question_settings">Question Settings</string>
+    <string name="center_click">Please select one of the four navigation options.</string>
+</resources>
