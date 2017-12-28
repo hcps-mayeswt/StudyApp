@@ -5,4 +5,6 @@
     <string name="app_settings">App Settings</string>
     <string name="question_settings">Question Settings</string>
     <string name="center_click">Please select one of the four navigation options.</string>
+    <string name="pref">My Preferences</string>
+    <string name="display_time">Display Time</string>
 </resources>

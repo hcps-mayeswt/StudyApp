@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="topicsMain">#FF2020</color>
-    <color name="progressMain">#068267</color>
-    <color name="questionSettingsMain">#FF7700</color>
+    <color name="progressMain">#FF7700</color>
+    <color name="questionSettingsMain">#068267</color>
     <color name="appSettingsMain">#052F5F</color>
 </resources>

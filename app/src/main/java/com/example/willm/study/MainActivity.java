@@ -1,47 +1,34 @@
 package com.example.willm.study;
 
-import android.app.ActivityManager;
-import android.app.usage.UsageStats;
-import android.app.usage.UsageStatsManager;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
-import android.icu.util.Calendar;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.widget.TextSwitcher;
 import android.widget.TextView;
 
-import java.util.List;
-import java.util.TimerTask;
-
-import static android.content.Context.ACTIVITY_SERVICE;
-
 public class MainActivity extends AppCompatActivity {
-
-    //Monitoring App Usage
-    //final UsageStatsManager usageStatsManager = (UsageStatsManager) getSystemService(Context.USAGE_STATS_SERVICE);// Context.USAGE_STATS_SERVICE);
+    //Apps to exclude from being blocked
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        MonitorService ms = new MonitorService();
-        //ms.start();
-        PackageManager pm = getApplicationContext().getPackageManager();
-        List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
-        //for(ApplicationInfo app : packages){
-        //    if()
-        //}
-        ActivityManager activityManager = (ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
-        List<ActivityManager.RunningTaskInfo> taskInfo = activityManager.getRunningTasks(1);
-        String current = taskInfo.get(0).topActivity.getPackageName();
-        Log.d("Other App Monitoring",current);
+        //Start the tracking service
+        MonitorService.start(this);
+
+        //Ensure that all needed variables for the app blocking functionality are present
+        SharedPreferences prefs = getSharedPreferences(getString(R.string.pref), MODE_PRIVATE);//Get preferences
+        long displayTime = prefs.getLong(getString(R.string.display_time), Long.MAX_VALUE);//Check if the display time is set
+        //Check to make sure the display time isn't the default value, ie the d
+        if(displayTime == Long.MAX_VALUE) {
+            //Create an editor to set the next display time to 0.
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putLong(getString(R.string.display_time), 0);
+            editor.commit();
+        }
     }
 
     //Function to display hint text when a user clicks on the center
@@ -85,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
     //Function to transition the user to the topic page
     public void onTopicClick(View r){
         startActivity(new Intent(MainActivity.this, TopicActivity.class));
-        //startActivity(new Intent(MainActivity.this, StudyQuestionsActivity.class));
     }
 
     //Function to transition the user to the progress page
