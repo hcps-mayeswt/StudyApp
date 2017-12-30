@@ -18,14 +18,17 @@ public class QuestionSettingsActivity extends AppCompatActivity {
 
     public void goToTopics(View view){
         startActivity(new Intent(QuestionSettingsActivity.this, TopicActivity.class));
+        finish();
     }
 
     public void goToProgress(View view){
         startActivity(new Intent(QuestionSettingsActivity.this, ProgressActivity.class));
+        finish();
     }
 
     public void goToAppSettings(View view){
         startActivity(new Intent(QuestionSettingsActivity.this, AppSettingsActivity.class));
+        finish();
     }
 
     public void goToQuestionSettings(View view){}

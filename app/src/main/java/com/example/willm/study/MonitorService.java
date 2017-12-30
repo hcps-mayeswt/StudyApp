@@ -1,7 +1,6 @@
 package com.example.willm.study;
 
 import android.app.ActivityManager;
-import android.app.PendingIntent;
 import android.app.Service;
 import android.app.usage.UsageStats;
 import android.app.usage.UsageStatsManager;
@@ -67,7 +66,7 @@ public class MonitorService extends Service {
                 }
                 //Ensure that the current app isn't one of a list of excluded apps
                 //TODO: Make this into an actual list, so it is extensible.
-                if (!currentApp.equals("com.sec.android.app.launcher") && !currentApp.equals("com.example.willm.study") && !currentApp.equals("com.android.systemui")) {
+                if (!currentApp.equals("NULL") && !currentApp.equals("com.sec.android.app.launcher") && !currentApp.equals("com.example.willm.study") && !currentApp.equals("com.android.systemui")) {
                     //Present the lockout page to the user
                     Intent presentQuestions = new Intent(MonitorService.this, StudyQuestionsActivity.class);
                     //Record the current app so the page can go back to the correct place

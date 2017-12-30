@@ -20,13 +20,16 @@ public class TopicActivity extends AppCompatActivity {
 
     public void goToProgress(View view){
         startActivity(new Intent(TopicActivity.this, ProgressActivity.class));
+        finish();
     }
 
     public void goToAppSettings(View view){
         startActivity(new Intent(TopicActivity.this, AppSettingsActivity.class));
+        finish();
     }
 
     public void goToQuestionSettings(View view){
         startActivity(new Intent(TopicActivity.this, QuestionSettingsActivity.class));
+        finish();
     }
 }

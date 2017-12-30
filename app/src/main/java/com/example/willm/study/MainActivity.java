@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences(getString(R.string.pref), MODE_PRIVATE);//Get preferences
         long displayTime = prefs.getLong(getString(R.string.display_time), Long.MAX_VALUE);//Check if the display time is set
         //Check to make sure the display time isn't the default value, ie the d
-        if(displayTime == Long.MAX_VALUE) {
+        if(true || displayTime == Long.MAX_VALUE) {
             //Create an editor to set the next display time to 0.
             SharedPreferences.Editor editor = prefs.edit();
             editor.putLong(getString(R.string.display_time), 0);

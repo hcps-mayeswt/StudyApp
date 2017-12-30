@@ -5,12 +5,43 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.willm.study.StudyQuestionsActivity">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:gravity="center"
+        android:text="Hello World!"
+        android:textColor="@color/colorPrimary"
+        android:textSize="12pt"
+        android:id="@+id/question"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Answer:"
+            android:layout_weight="0.3"
+            android:gravity="center"
+            android:textSize="8pt"
+            android:textColor="@color/colorPrimary"
+            />
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:hint="Type the answer here"
+            android:id="@+id/answer"/>
+    </LinearLayout>
 
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Continue"
-        android:layout_gravity="center"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="15dp"
         android:onClick="moveOn"/>
 </FrameLayout>
