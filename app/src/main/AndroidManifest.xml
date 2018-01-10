@@ -3,9 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.willm.study"
     android:theme="@style/AppTheme">
-    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"
-        tools:ignore="ProtectedPermissions"/>
 
+    <uses-permission
+        android:name="android.permission.PACKAGE_USAGE_STATS"
+        tools:ignore="ProtectedPermissions" />
 
     <application
         android:allowBackup="true"
@@ -14,8 +15,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
         android:theme="@style/NavTheme"
-        <service android:name=".MonitorService"
-            android:enabled="true"/>
+        <service
+            android:name=".MonitorService"
+            android:enabled="true" />
+
         <activity
             android:name=".MainActivity"
             android:theme="@style/NavTheme">
@@ -37,8 +40,11 @@
         <activity
             android:name=".ProgressActivity"
             android:theme="@style/OpeningPageTheme" />
-        <activity android:name=".StudyQuestionsActivity"
-            android:theme="@style/OpeningPageTheme"></activity>
+        <activity
+            android:name=".StudyQuestionsActivity"
+            android:theme="@style/OpeningPageTheme" />
+        <activity android:name=".AddTopicsActivity"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

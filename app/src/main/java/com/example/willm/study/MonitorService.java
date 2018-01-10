@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -25,14 +26,17 @@ public class MonitorService extends Service {
 
     private Handler mHandler = new Handler();//Handler to repeat the app usage tracking every second
 
+    private DBHandler db;
+
     private final Runnable appTracker = new Runnable(){
         @Override
         public void run(){
+            ArrayList<Topic> currentTopics = db.getCurrentTopics();
             //Get the time when the lockout screen should next be displayed
             SharedPreferences prefs = getSharedPreferences(getString(R.string.pref), MODE_PRIVATE);
             long displayTime = prefs.getLong(getString(R.string.display_time), 0);
             //If we should display the lockout app, start looking for apps that are running
-            if(System.currentTimeMillis() >= displayTime) {
+            if(System.currentTimeMillis() >= displayTime && currentTopics != null && currentTopics.size() > 0) {
                 String currentApp = "NULL";//The app that is currently being used
                 //The preferred method only works in Lollipop or later
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
@@ -73,7 +77,8 @@ public class MonitorService extends Service {
                     presentQuestions.putExtra("App", currentApp);
                     startActivity(presentQuestions);
                 }
-                Log.e("Other App Monitoring", "Current App in foreground is: " + currentApp);
+                //Log.e("Other App Monitoring", "Current App in foreground is: " + currentApp);
+
             }
             //Repeat the check after a delay
             mHandler.postDelayed(appTracker, REPEAT_INTERVAL);
@@ -93,6 +98,7 @@ public class MonitorService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        db = new DBHandler(this);
         mHandler.post(appTracker);//Start tracking app usage
         super.onStartCommand(intent, flags, startId);
         return START_STICKY;//Return START_STICKY to ensure that this service will continue running even if the app is removed from the app tray

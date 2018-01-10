@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 public class StudyQuestionsActivity extends AppCompatActivity {
@@ -19,18 +20,28 @@ public class StudyQuestionsActivity extends AppCompatActivity {
 
     String correctAnswer = "";//The correct answer
 
+    DBHandler db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_study_questions);
+        db = new DBHandler(this);
         getNextQuestion();
         //Record the app that the screen came from
         appPackage = getIntent().getStringExtra("App");
     }
 
     public void getNextQuestion(){
+        //Randomly Choose Topic
+        ArrayList<Topic> currentTopics = db.getCurrentTopics();
+        Log.e("Current topics", currentTopics.toString());
+        int index = (int)(Math.random() * currentTopics.size());
+        Log.e("Current topics", index + "");
+        Topic t = currentTopics.get(index);
+        Log.e("Current topics", t.toString());
         //Generate the question
-        Map<String, String> questionMap = Topics.simpleAddition.generateQuestion();
+        Map<String, String> questionMap = t.generateQuestion();
         //Display the question
         TextView questionText = findViewById(R.id.question);
         questionText.setText(questionMap.get("question"));

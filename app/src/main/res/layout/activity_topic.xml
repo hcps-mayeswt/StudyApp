@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:custom="http://schemas.android.com/apk/com.example.wilm.study"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.willm.study.TopicActivity"
+    android:orientation="vertical"
+    android:id="@+id/topics_page"
     >
     <TextView
         android:layout_width="match_parent"
@@ -17,12 +17,56 @@
         android:textColor="#FFFFFF"
         android:textSize="36sp"
         android:textStyle="bold"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/topic_list_spot">
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/current_topics_list"/>
+        <!--Empty State-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/topics_empty_state">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/topic_empty_state_header"
+                android:id="@+id/topics_empty_state_header"
+                android:textSize="32sp"
+                android:textColor="@color/colorPrimary"
+                android:gravity="center"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/topic_empty_state_add_topics_hint"
+                android:id="@+id/topics_empty_state_text"
+                android:textSize="26sp"
+                android:textColor="@color/colorPrimary"
+                android:gravity="center"/>
+
+            <ImageButton
+                android:id="@+id/add_topics"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:src="@drawable/add_topics_large"
+                android:onClick="goToAddTopics"
+                android:layout_marginTop="10dp"/>
+        </LinearLayout>
+    </FrameLayout>
     <!--Nav Bar-->
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_gravity="bottom"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:id="@+id/nav_bar">
         <!--Topic Nav Item-->
         <TextView
             android:id="@+id/topic_nav_bar"
@@ -77,4 +121,4 @@
             android:background="@drawable/question_settings_bg"/>
     </LinearLayout>
 
-</FrameLayout>
+</LinearLayout>
