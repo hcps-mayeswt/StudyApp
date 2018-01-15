@@ -1,0 +1,73 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- NOTE: EditTextPreference accepts EditText attributes. -->
+    <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
+
+    <!-- NOTE: Hide buttons to simplify the UI. Users can touch outside the dialog to
+         dismiss it. -->
+    <!-- NOTE: ListPreference's summary should be set to its value by the activity code. -->
+
+    <PreferenceCategory android:title="Question Requirements">
+
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/pref_example_list_titles"
+            android:entryValues="@array/pref_example_list_titles"
+            android:key="primary_req_type"
+            android:title="Primary Requirement Type" />
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/list_preference_entries"
+            android:entryValues="@array/list_preference_entries"
+            android:key="primary_req"
+            android:title="Primary Requirement" />
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/list_preference_entries"
+            android:entryValues="@array/list_preference_entries"
+            android:key="sec_req_type"
+            android:title="Secondary Requirement Type" />
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/list_preference_entries"
+            android:entryValues="@array/list_preference_entries"
+            android:key="sec_req"
+            android:title="Secondary Requirement" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="When To Ask Questions">
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="always_lockout"
+            android:title="24/7 Lockout" />
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/pref_sync_frequency_titles"
+            android:entryValues="@array/pref_sync_frequency_titles"
+            android:key="unlock_duration"
+            android:title="Unlock Duration" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Progress Reporting">
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="progress_reporting_check"
+            android:title="Enable Weekly Progress Reporting" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="email_on_uninstall"
+            android:title="Email On Uninstall" />
+        <EditTextPreference
+            android:defaultValue="Default value"
+            android:key="progress_email"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="Progress Email" />
+    </PreferenceCategory>
+    <MultiSelectListPreference
+        android:defaultValue="@array/list_preference_entries"
+        android:entries="@array/list_preference_entries"
+        android:entryValues="@array/list_preference_entries"
+        android:key="unblocked_apps"
+        android:title="Apps To Not Block" />
+</PreferenceScreen>

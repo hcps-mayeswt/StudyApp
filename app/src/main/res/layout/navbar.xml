@@ -4,7 +4,7 @@
     android:layout_height="50dp"
     android:layout_gravity="bottom"
     android:orientation="horizontal">
-    <!--Topic Nav Item-->
+    TopicFactoryopic Nav Item-->
     <TextView
         android:id="@+id/topic_nav_bar"
         android:layout_width="0dp"

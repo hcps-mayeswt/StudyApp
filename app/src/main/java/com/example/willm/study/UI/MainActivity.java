@@ -1,4 +1,4 @@
-package com.example.willm.study;
+package com.example.willm.study.UI;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,11 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.TextView;
 
+import com.example.willm.study.DBHandler;
+import com.example.willm.study.MonitorService;
+import com.example.willm.study.R;
+import com.example.willm.study.Topics.TopicsHandler;
+
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         //Start the tracking service
         MonitorService.start(this);
-        addTopicsToDB();
+        //Set two currents
         //Ensure that all needed variables for the app blocking functionality are present
         SharedPreferences prefs = getSharedPreferences(getString(R.string.pref), MODE_PRIVATE);//Get preferences
         long displayTime = prefs.getLong(getString(R.string.display_time), Long.MAX_VALUE);//Check if the display time is set
@@ -33,30 +38,6 @@ public class MainActivity extends AppCompatActivity {
             editor.commit();
         }
     }
-
-
-    public static void addTopics(Context context){
-        if(TopicsHandler.allTopics == null)
-            TopicsHandler.allTopics = new HashMap<>();
-        DBHandler db = new DBHandler(context);
-        db.addTopic(TopicsHandler.simpleAddition);
-        db.addTopic(TopicsHandler.simpleMultiplication);
-        db.updateCurrent(TopicsHandler.simpleAddition, (byte)1);
-        db.updateCurrent(TopicsHandler.simpleMultiplication, (byte)1);
-    }
-
-    public void addTopicsToDB(){
-        if(TopicsHandler.allTopics == null)
-            TopicsHandler.allTopics = new HashMap<>();
-        DBHandler db = new DBHandler(this);
-        db.addTopic(TopicsHandler.simpleAddition);
-        db.addTopic(TopicsHandler.simpleMultiplication);
-        db.updateCurrent(TopicsHandler.simpleAddition, (byte)1);
-        db.updateCurrent(TopicsHandler.simpleMultiplication, (byte)1);
-        Log.e("Reading from database", db.getTopicsByCategory("Addition").toString());
-        Log.e("Reading from database", "Current " + db.getCurrentTopics().toString());
-    }
-
 
     //Function to display hint text when a user clicks on the center
     public void onCenterClick(View r){

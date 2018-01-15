@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.willm.study.ProgressActivity">
+    tools:context="com.example.willm.study.UI.ProgressActivity">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -23,7 +23,7 @@
         android:layout_gravity="bottom"
         android:orientation="horizontal"
         android:id="@+id/nav_bar">
-        <!--Topic Nav Item-->
+        TopicFactoryopic Nav Item-->
         <TextView
             android:id="@+id/topic_nav_bar"
             android:layout_width="0dp"

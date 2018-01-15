@@ -1,4 +1,4 @@
-package com.example.willm.study;
+package com.example.willm.study.UI;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,6 +8,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.willm.study.DBHandler;
+import com.example.willm.study.R;
+import com.example.willm.study.Topics.TopicFactory;
+import com.example.willm.study.Topics.TopicsHandler;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -33,15 +38,15 @@ public class StudyQuestionsActivity extends AppCompatActivity {
     }
 
     public void getNextQuestion(){
-        //Randomly Choose Topic
-        ArrayList<Topic> currentTopics = db.getCurrentTopics();
+        //Randomly Choose TopicFactory
+        ArrayList<String> currentTopics = db.getCurrentTopics();
         Log.e("Current topics", currentTopics.toString());
         int index = (int)(Math.random() * currentTopics.size());
         Log.e("Current topics", index + "");
-        Topic t = currentTopics.get(index);
+        String t = currentTopics.get(index);
         Log.e("Current topics", t.toString());
         //Generate the question
-        Map<String, String> questionMap = t.generateQuestion();
+        Map<String, String> questionMap = TopicsHandler.getQuestion(t);
         //Display the question
         TextView questionText = findViewById(R.id.question);
         questionText.setText(questionMap.get("question"));

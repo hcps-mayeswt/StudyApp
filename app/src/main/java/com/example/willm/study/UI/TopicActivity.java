@@ -1,4 +1,4 @@
-package com.example.willm.study;
+package com.example.willm.study.UI;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -11,8 +11,11 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.willm.study.DBHandler;
+import com.example.willm.study.R;
+import com.example.willm.study.Topics.TopicFactory;
+
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class TopicActivity extends AppCompatActivity {
@@ -42,11 +45,11 @@ public class TopicActivity extends AppCompatActivity {
         listSpot = findViewById(R.id.topic_list_spot);
         currentTopicsDisplay = findViewById(R.id.current_topics_list);
         DBHandler db = new DBHandler(this);
-        ArrayList<Topic> currentTopicsList = db.getCurrentTopics();
+        ArrayList<String> currentTopicsList = db.getCurrentTopics();
         Log.e("Reading from database", "Current " + currentTopicsList.toString());
         //Fill the topics list
         if(currentTopicsList != null && currentTopicsList.size() > 0) {
-            final TopicAdapter currentTopics = new TopicAdapter(this, currentTopicsList, this);
+            final TopicAdapter currentTopics = new TopicAdapter(this, currentTopicsList, this, false);
             currentTopicsDisplay.setAdapter(currentTopics);
             currentTopicsDisplay.addFooterView(addTopics);
             listSpot.removeView(emptyState);

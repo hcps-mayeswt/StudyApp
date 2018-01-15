@@ -20,7 +20,7 @@
             android:enabled="true" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".UI.MainActivity"
             android:theme="@style/NavTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,21 +29,23 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".TopicActivity"
+            android:name=".UI.TopicActivity"
             android:theme="@style/OpeningPageTheme" />
         <activity
-            android:name=".AppSettingsActivity"
+            android:name=".UI.AppSettingsActivity"
             android:theme="@style/OpeningPageTheme" />
         <activity
-            android:name=".QuestionSettingsActivity"
+            android:name=".UI.ProgressActivity"
             android:theme="@style/OpeningPageTheme" />
         <activity
-            android:name=".ProgressActivity"
+            android:name=".UI.StudyQuestionsActivity"
             android:theme="@style/OpeningPageTheme" />
         <activity
-            android:name=".StudyQuestionsActivity"
-            android:theme="@style/OpeningPageTheme" />
-        <activity android:name=".AddTopicsActivity"
+            android:name=".UI.AddTopicsActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".UI.QuestionSettingsActivity"
+            android:label="@string/title_activity_question_settings"
             android:theme="@style/AppTheme"></activity>
     </application>
 
