@@ -64,10 +64,10 @@
             android:singleLine="true"
             android:title="Progress Email" />
     </PreferenceCategory>
-    <MultiSelectListPreference
+    <!--MultiSelectListPreference
         android:defaultValue="@array/list_preference_entries"
         android:entries="@array/list_preference_entries"
         android:entryValues="@array/list_preference_entries"
         android:key="unblocked_apps"
-        android:title="Apps To Not Block" />
+        android:title="Apps To Not Block" /-->
 </PreferenceScreen>
