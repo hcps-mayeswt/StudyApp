@@ -45,8 +45,9 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".UI.QuestionSettingsActivity"
-            android:label="@string/title_activity_question_settings"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <!--android:label="@string/title_activity_question_settings"-->
+
     </application>
 
 </manifest>

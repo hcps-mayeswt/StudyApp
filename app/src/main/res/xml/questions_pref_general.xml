@@ -10,44 +10,45 @@
     <PreferenceCategory android:title="Question Requirements">
 
         <ListPreference
-            android:defaultValue="1"
-            android:entries="@array/pref_example_list_titles"
-            android:entryValues="@array/pref_example_list_titles"
+            android:defaultValue="Number Attempted"
+            android:entries="@array/pref_req_types"
+            android:entryValues="@array/pref_req_types"
             android:key="primary_req_type"
             android:title="Primary Requirement Type" />
         <ListPreference
             android:defaultValue="1"
-            android:entries="@array/list_preference_entries"
-            android:entryValues="@array/list_preference_entries"
+            android:entries="@array/pref_reqs"
+            android:entryValues="@array/pref_reqs"
             android:key="primary_req"
             android:title="Primary Requirement" />
         <ListPreference
-            android:defaultValue="1"
-            android:entries="@array/list_preference_entries"
-            android:entryValues="@array/list_preference_entries"
+            android:defaultValue="None"
+            android:entries="@array/pref_req_types_none"
+            android:entryValues="@array/pref_req_types_none"
             android:key="sec_req_type"
             android:title="Secondary Requirement Type" />
         <ListPreference
             android:defaultValue="1"
-            android:entries="@array/list_preference_entries"
-            android:entryValues="@array/list_preference_entries"
+            android:entries="@array/pref_reqs"
+            android:entryValues="@array/pref_reqs"
             android:key="sec_req"
             android:title="Secondary Requirement" />
     </PreferenceCategory>
     <PreferenceCategory android:title="When To Ask Questions">
 
-        <CheckBoxPreference
+        <!--CheckBoxPreference
             android:defaultValue="true"
             android:key="always_lockout"
-            android:title="24/7 Lockout" />
+            android:title="24/7 Lockout" /-->
+
         <ListPreference
-            android:defaultValue="1"
-            android:entries="@array/pref_sync_frequency_titles"
-            android:entryValues="@array/pref_sync_frequency_titles"
+            android:defaultValue="600000"
+            android:entries="@array/pref_unlock_dur_titles"
+            android:entryValues="@array/pref_unlock_dur_values"
             android:key="unlock_duration"
             android:title="Unlock Duration" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="Progress Reporting">
+    <!--PreferenceCategory android:title="Progress Reporting">
 
         <CheckBoxPreference
             android:defaultValue="false"
@@ -63,7 +64,7 @@
             android:selectAllOnFocus="true"
             android:singleLine="true"
             android:title="Progress Email" />
-    </PreferenceCategory>
+    </PreferenceCategory-->
     <!--MultiSelectListPreference
         android:defaultValue="@array/list_preference_entries"
         android:entries="@array/list_preference_entries"

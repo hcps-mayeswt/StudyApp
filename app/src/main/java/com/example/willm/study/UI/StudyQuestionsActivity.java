@@ -10,8 +10,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.willm.study.DBHandler;
+import com.example.willm.study.QuestionSettingsHandler;
 import com.example.willm.study.R;
-import com.example.willm.study.Topics.TopicFactory;
 import com.example.willm.study.Topics.TopicsHandler;
 
 import java.util.ArrayList;
@@ -19,11 +19,13 @@ import java.util.Map;
 
 public class StudyQuestionsActivity extends AppCompatActivity {
 
-    public static final int RESET_TIME = 10 * 60 * 1000;//10 minute
+    public static long resetTime;
 
     String appPackage = "";//The app that was opened that triggered this to display
 
     String correctAnswer = "";//The correct answer
+
+    int attempted, correct, inARow;
 
     DBHandler db;
 
@@ -33,8 +35,12 @@ public class StudyQuestionsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_study_questions);
         db = new DBHandler(this);
         getNextQuestion();
+        resetTime = QuestionSettingsHandler.getUnlockDuration(this);
         //Record the app that the screen came from
         appPackage = getIntent().getStringExtra("App");
+        attempted = 0;
+        correct = 0;
+        inARow = 0;
     }
 
     public void getNextQuestion(){
@@ -75,13 +81,23 @@ public class StudyQuestionsActivity extends AppCompatActivity {
         //Get the users answer
         EditText answerInput = findViewById(R.id.answer);
         String userAnswer = answerInput.getText().toString();
+        if(!userAnswer.equals("")) attempted++;
+        if(userAnswer.equals(correctAnswer)){
+            correct++;
+            inARow++;
+        }
+        else{
+            inARow = 0;
+        }
         Log.e("Question Displaying", userAnswer);
-        if(userAnswer.equals(correctAnswer)) {
+        answerInput.setText("");
+        if(QuestionSettingsHandler.passedReq(this, attempted, correct, inARow)) {
             //Write the next time that this needs to be displayed on
             SharedPreferences prefs = getSharedPreferences(getString(R.string.pref), MODE_PRIVATE);
             SharedPreferences.Editor editor = prefs.edit();
-            editor.putLong(getString(R.string.display_time), System.currentTimeMillis() + RESET_TIME);
+            editor.putLong(getString(R.string.display_time), System.currentTimeMillis() + resetTime);
             editor.commit();
+            Log.e("Other App Monitoring", resetTime + "");
             //Return to the app that triggered the creation of this screen
             Intent launchIntent = getPackageManager().getLaunchIntentForPackage(appPackage);
             startActivity(launchIntent);
