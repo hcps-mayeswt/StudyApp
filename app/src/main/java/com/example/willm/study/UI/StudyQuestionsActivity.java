@@ -61,7 +61,12 @@ public class StudyQuestionsActivity extends AppCompatActivity {
         Log.e("Question Displaying", "Correct answer is " + correctAnswer);
         //Set the input type
         EditText userInput = findViewById(R.id.answer);
-        userInput.setInputType(Integer.parseInt(questionMap.get("answerType")));
+        if(questionMap.get("answerSigned").equals("")){
+            userInput.setInputType(Integer.parseInt(questionMap.get("answerType")));
+        }
+        else{
+            userInput.setInputType(Integer.parseInt(questionMap.get("answerSigned")) | Integer.parseInt(questionMap.get("answerType")));
+        }
     }
 
     @Override
