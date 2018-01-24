@@ -77,6 +77,7 @@ public class DBHandler extends SQLiteOpenHelper {
                     cats.add(cursor.getString(3));
             }while(cursor.moveToNext());
         }
+        db.close();
         return cats;
     }
 
@@ -90,6 +91,7 @@ public class DBHandler extends SQLiteOpenHelper {
                     cats.add(cursor.getString(2));
             }while(cursor.moveToNext());
         }
+        db.close();
         return cats;
     }
 
@@ -122,6 +124,7 @@ public class DBHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_CURRENT, val);
         db.update(TABLE_TOPICS, values, KEY_NAME + "=?", new String[]{t});
+        db.close();
     }
     //Get current topics
     public ArrayList<String> getCurrentTopics(){
@@ -135,6 +138,7 @@ public class DBHandler extends SQLiteOpenHelper {
                 topics.add(cursor.getString(1));
             }while(cursor.moveToNext());
         }
+        db.close();
         return topics;
     }
     //Get TopicsHandler By Category
@@ -148,6 +152,7 @@ public class DBHandler extends SQLiteOpenHelper {
                 topics.add(cursor.getString(1));
             }while(cursor.moveToNext());
         }
+        db.close();
         return topics;
     }
     //Get TopicsHandler By Category
@@ -164,16 +169,7 @@ public class DBHandler extends SQLiteOpenHelper {
                 topics.add(cursor.getString(1));
             }while(cursor.moveToNext());
         }
-        cursor = db.rawQuery("SELECT * FROM " + TABLE_TOPICS + " WHERE " + KEY_SUB_CAT + "='" + cat + "'", null);
-        if(cursor.moveToFirst()) {
-            do {
-                Log.e("Getting Things", cursor.getString(1));
-                Log.e("Getting Things", cursor.getString(3));
-                Log.e("Getting Things", Integer.toString(cursor.getInt(4)));
-                //topics.add(cursor.getString(1));
-            } while (cursor.moveToNext());
-        }
+        db.close();
         return topics;
     }
-
 }
