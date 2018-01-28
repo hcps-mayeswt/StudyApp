@@ -43,7 +43,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/question_requirements"
-                    android:textSize="32sp"
+                    android:textSize="28sp"
                     android:textColor="#000000"
                     />
                 <ImageView
@@ -66,12 +66,22 @@
                     android:orientation="horizontal"
                     android:id="@+id/primary_req_type"
                     android:layout_marginBottom="10dp">
+
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Primary Requirement Type"
-                        android:textSize="24sp"
-                        android:textColor="@color/colorPrimary"/>
+                        android:layout_weight="2"
+                        android:text="@string/primary_req_type"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp" />
+
+                    <Spinner
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:entries="@array/pref_req_types"
+                        android:prompt="@string/primary_req_type"
+                        android:id="@+id/primary_req_type_val"/>
                 </LinearLayout>
                 <!--Primary Requirement-->
                 <LinearLayout
@@ -80,12 +90,21 @@
                     android:orientation="horizontal"
                     android:id="@+id/primary_req"
                     android:layout_marginBottom="10dp">
+
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Primary Requirement"
-                        android:textSize="24sp"
-                        android:textColor="@color/colorPrimary"/>
+                        android:layout_weight="2"
+                        android:text="@string/primary_req"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp" />
+                    <Spinner
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:entries="@array/pref_reqs"
+                        android:prompt="@string/primary_req"
+                        android:id="@+id/primary_req_val"/>
                 </LinearLayout>
                 <!--Secondary Requirement Type-->
                 <LinearLayout
@@ -94,12 +113,21 @@
                     android:orientation="horizontal"
                     android:id="@+id/secondary_req_type"
                     android:layout_marginBottom="10dp">
+
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Secondary Requirement Type"
-                        android:textSize="24sp"
-                        android:textColor="@color/colorPrimary"/>
+                        android:layout_weight="2"
+                        android:text="@string/secondary_req_type"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp" />
+                    <Spinner
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:entries="@array/pref_req_types_none"
+                        android:prompt="@string/secondary_req_type"
+                        android:id="@+id/secondary_req_type_val"/>
                 </LinearLayout>
                 <!--Secondary Requirement-->
                 <LinearLayout
@@ -108,12 +136,21 @@
                     android:orientation="horizontal"
                     android:id="@+id/secondary_req"
                     android:layout_marginBottom="10dp">
+
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Secondary Requirement"
-                        android:textSize="24sp"
-                        android:textColor="@color/colorPrimary"/>
+                        android:layout_weight="2"
+                        android:text="@string/secondary_req"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp" />
+                    <Spinner
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:entries="@array/pref_reqs"
+                        android:prompt="@string/secondary_req"
+                        android:id="@+id/secondary_req_val"/>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -136,7 +173,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/when_to_ask"
-            android:textSize="32sp"
+            android:textSize="28sp"
             android:textColor="#000000"
             />
         <ImageView
@@ -148,10 +185,10 @@
             android:foregroundGravity="center"/>
         </FrameLayout>
             <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/when_to_ask_group"
-        android:orientation="vertical">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/when_to_ask_group"
+                android:orientation="vertical">
         <!--Unlock Duration-->
         <LinearLayout
             android:layout_width="match_parent"
@@ -159,12 +196,21 @@
             android:orientation="horizontal"
             android:id="@+id/unlock_duration"
             android:layout_marginBottom="10dp">
+
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Unlock Duration"
-                android:textSize="24sp"
-                android:textColor="@color/colorPrimary"/>
+                android:layout_weight="2"
+                android:text="@string/unlock_dur"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp" />
+            <Spinner
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:entries="@array/pref_unlock_dur_titles"
+                android:prompt="@string/unlock_dur"
+                android:id="@+id/unlock_dur_val"/>
         </LinearLayout>
     </LinearLayout>
         </LinearLayout>

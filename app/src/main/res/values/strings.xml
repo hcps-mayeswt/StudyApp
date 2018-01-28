@@ -14,7 +14,11 @@
     <!-- Strings related to Settings -->
     <string name="question_requirements">Question Requirements</string>
     <string name="when_to_ask">When To Ask Questions</string>
-
+    <string name="primary_req_type">Primary Requirement Type</string>
+    <string name="secondary_req_type">Secondary Requirement Type</string>
+    <string name="primary_req">Primary Requirements</string>
+    <string name="secondary_req">Secondary Requirements</string>
+    <string name="unlock_dur">Unlock Duration</string>
     <!-- Unlock Times Arrays-->
     <string-array name="pref_unlock_dur_titles">
         <item>10 Minutes</item>
@@ -32,15 +36,15 @@
     </string-array>
     <!-- Requirement Arrays-->
     <string-array name="pref_req_types">
-        <item>Number Attempted</item>
-        <item>Number Correct</item>
-        <item>Number Correct In-A-Row</item>
+        <item># Attempted</item>
+        <item># Correct</item>
+        <item># Correct In-A-Row</item>
     </string-array>
 
     <string-array name="pref_req_types_none">
-        <item>Number Attempted</item>
-        <item>Number Correct</item>
-        <item>Number Correct In-A-Row</item>
+        <item># Attempted</item>
+        <item># Correct</item>
+        <item># Correct In-A-Row</item>
         <item>None</item>
     </string-array>
 

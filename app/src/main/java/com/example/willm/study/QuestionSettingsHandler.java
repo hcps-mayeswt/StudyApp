@@ -24,18 +24,27 @@ public class QuestionSettingsHandler {
         return Long.parseLong(prefs.getString(KEY_UNLOCK_DURATION, "0"));
     }
 
+    public static String getPreference (Context context,String prefKey){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getString(prefKey, "");
+    }
+
     public static boolean passedReq(Context context, int attempts, int correct, int inARow){
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         String primaryReqType = prefs.getString(KEY_PRIMARY_REQ_TYPE, "");
         int primaryReq = Integer.parseInt(prefs.getString(KEY_PRIMARY_REQ, "0"));
+        Log.e("Attempted", primaryReq + "");
+        Log.e("Attempted", primaryReqType);
+        Log.e("Attempted", attempts + "");
+        Log.e("Attempted", correct + "");
         switch(primaryReqType){
-            case "Number Attempted":
+            case "# Attempted":
                 if(attempts >= primaryReq) return true;
                 break;
-            case "Number Correct":
+            case "# Correct":
                 if(correct >= primaryReq) return true;
                 break;
-            case "Number Correct In-A-Row":
+            case "# Correct In-A-Row":
                 if(inARow >= primaryReq) return true;
                 break;
             default:

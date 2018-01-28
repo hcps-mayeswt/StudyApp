@@ -3,6 +3,7 @@ package com.example.willm.study.UI;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -21,10 +22,13 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 
+import com.example.willm.study.QuestionSettingsHandler;
 import com.example.willm.study.R;
 
 import java.util.List;
@@ -48,10 +52,157 @@ public class QuestionSettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_settings);
+        setUpDropdowns();
         setUpSettingsDisplay();
         //getSupportFragmentManager().beginTransaction()
         //        .replace(android.R.id.content, new QuestionSettingsFragment())
         //        .commit();
+    }
+
+    public int findPos(String[] arr, String val){
+        int i = 0;
+        for (String str : arr){
+            if(str.equals(val)){
+                return i;
+            }
+            i++;
+        }
+        return -1;
+    }
+
+    public void setUpDropdowns(){
+        //----------------------Set up primary req type-------------------------
+        //Find the spinner
+        Spinner primaryReqType = findViewById(R.id.primary_req_type_val);
+        //Set the on item selected listener to update preferences
+        primaryReqType.setOnItemSelectedListener(
+            new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                        SharedPreferences.Editor edit = prefs.edit();
+                        String[] preferences = getResources().getStringArray(R.array.pref_req_types);
+                        String selected = preferences[i];
+                        Log.e("Selecting", selected);
+                        edit.putString(QuestionSettingsHandler.KEY_PRIMARY_REQ_TYPE, selected);
+                        edit.commit();
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                }
+        );
+        //Get the current value
+        String primaryReqTypeVal = QuestionSettingsHandler.getPreference(this, QuestionSettingsHandler.KEY_PRIMARY_REQ_TYPE);
+        //Set spinner value to position of current value
+        primaryReqType.setSelection(findPos(getResources().getStringArray(R.array.pref_req_types), primaryReqTypeVal));
+        //---------------------Set up primary req-------------------------------
+        //Find the spinner
+        Spinner primaryReq = findViewById(R.id.primary_req_val);
+        //Set the on item selected listener to update preferences
+        primaryReq.setOnItemSelectedListener(
+            new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                        SharedPreferences.Editor edit = prefs.edit();
+                        String[] reqs = getResources().getStringArray(R.array.pref_reqs);
+                        String selected = reqs[i];
+                        Log.e("Selected", selected);
+                        edit.putString(QuestionSettingsHandler.KEY_PRIMARY_REQ, selected);
+                        edit.commit();
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                }
+        );
+        //Get the current value
+        String primaryReqVal = QuestionSettingsHandler.getPreference(this, QuestionSettingsHandler.KEY_PRIMARY_REQ);
+        //Set spinner value to position of current value
+        primaryReq.setSelection(findPos(getResources().getStringArray(R.array.pref_reqs), primaryReqVal));
+        //---------------------Set up secondary req type------------------------
+        //Find the spinner
+        Spinner secondaryReqType = findViewById(R.id.secondary_req_type_val);
+        //Set the on item selected listener to update preferences
+        secondaryReqType.setOnItemSelectedListener(
+            new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                        SharedPreferences.Editor edit = prefs.edit();
+                        String[] reqTypes = getResources().getStringArray(R.array.pref_req_types_none);
+                        String selected = reqTypes[i];
+                        edit.putString(QuestionSettingsHandler.KEY_SECONDARY_REQ_TYPE, selected);
+                        edit.commit();
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                }
+        );
+        //Get the current value
+        String secondaryReqTypeVal = QuestionSettingsHandler.getPreference(this, QuestionSettingsHandler.KEY_SECONDARY_REQ_TYPE);
+        //Set the spinner value to position of current value
+        secondaryReqType.setSelection(findPos(getResources().getStringArray(R.array.pref_req_types_none), secondaryReqTypeVal));
+        //---------------------Set up secondary req-----------------------------
+        //Find the spinner
+        Spinner secondaryReq = findViewById(R.id.secondary_req_val);
+        //Set the on item selected listener to update preferences
+        secondaryReq.setOnItemSelectedListener(
+            new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                        SharedPreferences.Editor edit = prefs.edit();
+                        String[] reqs = getResources().getStringArray(R.array.pref_reqs);
+                        String selected = reqs[i];
+                        edit.putString(QuestionSettingsHandler.KEY_SECONDARY_REQ, selected);
+                        edit.commit();
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                }
+        );
+        //Get the current value
+        String secondaryReqVal = QuestionSettingsHandler.getPreference(this, QuestionSettingsHandler.KEY_SECONDARY_REQ);
+        //Set the spinner value to position of current value
+        secondaryReq.setSelection(findPos(getResources().getStringArray(R.array.pref_reqs), secondaryReqVal));
+        //---------------------Set up unlock duration---------------------------
+        //Find the spinner
+        Spinner unlockDur = findViewById(R.id.unlock_dur_val);
+        //Set the on item selected listener to update preferences
+        unlockDur.setOnItemSelectedListener(
+            new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                        SharedPreferences.Editor edit = prefs.edit();
+                        String[] durs = getResources().getStringArray(R.array.pref_unlock_dur_values);
+                        String selected = durs[i];
+                        edit.putString(QuestionSettingsHandler.KEY_PRIMARY_REQ, selected);
+                        edit.commit();
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                }
+        );
+        //Get the current value
+        String unlockDurVal = QuestionSettingsHandler.getPreference(this, QuestionSettingsHandler.KEY_UNLOCK_DURATION);
+        //Set the spinner value to position of current value
+        unlockDur.setSelection(findPos(getResources().getStringArray(R.array.pref_unlock_dur_values), unlockDurVal));
     }
 
     public void setUpSettingsDisplay(){
