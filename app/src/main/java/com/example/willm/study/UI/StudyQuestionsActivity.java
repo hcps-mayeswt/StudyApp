@@ -29,6 +29,8 @@ public class StudyQuestionsActivity extends AppCompatActivity {
 
     DBHandler db;
 
+    TextView numCorrect, numAttempted, numInARow, lastAnswer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +43,11 @@ public class StudyQuestionsActivity extends AppCompatActivity {
         attempted = 0;
         correct = 0;
         inARow = 0;
+        //Find all the needed text views
+        numAttempted = findViewById(R.id.numAttempted);
+        numCorrect = findViewById(R.id.numCorrect);
+        numInARow = findViewById(R.id.numInARow);
+        lastAnswer = findViewById(R.id.lastAnswer);
     }
 
     public void getNextQuestion(){
@@ -94,6 +101,7 @@ public class StudyQuestionsActivity extends AppCompatActivity {
         else{
             inARow = 0;
         }
+        updateDisplays();
         Log.e("Question Displaying", userAnswer);
         answerInput.setText("");
         if(QuestionSettingsHandler.passedReq(this, attempted, correct, inARow)) {
@@ -117,5 +125,13 @@ public class StudyQuestionsActivity extends AppCompatActivity {
         else{
             getNextQuestion();
         }
+    }
+
+    //Update all the helper texts
+    public void updateDisplays(){
+        numCorrect.setText(getResources().getString(R.string.raw_number, correct));
+        numInARow.setText(getResources().getString(R.string.raw_number, inARow));
+        numAttempted.setText(getResources().getString(R.string.raw_number, attempted));
+        lastAnswer.setText(getResources().getString(R.string.last_answer, correctAnswer));
     }
 }

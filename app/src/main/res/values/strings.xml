@@ -11,6 +11,10 @@
     <string name="topic_empty_state_add_topics_hint">You currently have no topics to study. Add some below!</string>
     <string name="title_activity_settings">Settings</string>
 
+    <!--Strings for study questions page-->
+    <string name="raw_number">%1$d</string>
+    <string name="last_answer">The answer to the last question was %1$s</string>
+
     <!-- Strings related to Settings -->
     <string name="question_requirements">Question Requirements</string>
     <string name="when_to_ask">When To Ask Questions</string>
