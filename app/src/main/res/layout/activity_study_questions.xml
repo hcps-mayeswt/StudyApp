@@ -1,28 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.willm.study.UI.StudyQuestionsActivity">
+    tools:context="com.example.willm.study.UI.StudyQuestionsActivity"
+    android:orientation="vertical">
+    <!--Explanation-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/answer_the_following"
+        android:textSize="22sp"
+        android:gravity="center"
+        android:id="@+id/answerTheFollowing"/>
+    <!--Question-->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/answerTheFollowing"
         android:text="Hello World!"
+        android:gravity="center"
         android:textColor="@color/colorPrimary"
-        android:textSize="12pt"
+        android:textSize="32sp"
         android:id="@+id/question"
         />
+    <!--Answer Layout-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
-        android:layout_gravity="center">
+        android:layout_below="@id/question"
+        android:id="@+id/answerLayout"
+        android:layout_marginTop="50dp">
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:text="Answer:"
+            android:text="@string/answer"
             android:layout_weight="0.3"
             android:gravity="center"
             android:textSize="8pt"
@@ -32,28 +47,29 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:hint="Type the answer here"
+            android:hint="@string/answer_here"
             android:id="@+id/answer"/>
     </LinearLayout>
     <!--Last Answer-->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text=""
+        android:text="@string/last_answer"
         android:textSize="25sp"
         android:textColor="#000000"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="160dp"
+        android:layout_below="@id/answerLayout"
         android:gravity="center"
+        android:layout_marginTop="50dp"
         android:id="@+id/lastAnswer"/>
-
     <!--Correct attempted and correct in a row display-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="70dp"
-        android:layout_gravity="bottom"
-        android:orientation="horizontal">
+        android:layout_below="@id/lastAnswer"
+        android:layout_above="@id/continueButton"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:id="@+id/progress_displays">
         <!--# Correct display-->
         <LinearLayout
             android:layout_width="0dp"
@@ -63,19 +79,19 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Correct:"
+                android:text="@string/correct"
                 android:textSize="24sp"
                 android:textColor="#000000"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginStart="10dp"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="0"
+                android:text="@string/zero"
                 android:textSize="20sp"
                 android:textColor="#000000"
                 android:id="@+id/numCorrect"
-                android:gravity="right"
-                android:layout_marginRight="35dp"/>
+                android:gravity="end"
+                android:layout_marginEnd="35dp"/>
         </LinearLayout>
         <!--# Attempted display-->
         <LinearLayout
@@ -86,19 +102,19 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Attempted:"
+                android:text="@string/attempted"
                 android:textSize="24sp"
                 android:textColor="#000000"
                 />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="0"
+                android:text="@string/zero"
                 android:textSize="20sp"
                 android:textColor="#000000"
                 android:id="@+id/numAttempted"
-                android:gravity="right"
-                android:layout_marginRight="10dp"/>
+                android:gravity="end"
+                android:layout_marginEnd="10dp"/>
         </LinearLayout>
         <!--# In-A-Row display-->
         <LinearLayout
@@ -109,30 +125,31 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Streak:"
+                android:text="@string/streak"
                 android:textSize="24sp"
                 android:textColor="#000000"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="0"
+                android:text="@string/zero"
                 android:textSize="20sp"
                 android:textColor="#000000"
                 android:id="@+id/numInARow"
-                android:gravity="right"
-                android:layout_marginRight="43dp"/>
+                android:gravity="end"
+                android:layout_marginEnd="43dp"/>
         </LinearLayout>
 
     </LinearLayout>
-
+    <!--Continue-->
     <Button
-        android:id="@+id/button"
+        android:id="@+id/continueButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Continue"
-        android:layout_gravity="bottom|center_horizontal"
+        android:text="@string/cont"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="15dp"
         android:onClick="moveOn"/>
-</FrameLayout>
+</RelativeLayout>

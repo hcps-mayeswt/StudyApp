@@ -1,4 +1,5 @@
 <resources>
+    <!--General and Homepage Strings-->
     <string name="app_name">Study!</string>
     <string name="topic">Topics</string>
     <string name="progress">Progress</string>
@@ -6,14 +7,24 @@
     <string name="question_settings">Question Settings</string>
     <string name="center_click">Please select one of the four navigation options.</string>
     <string name="pref">My Preferences</string>
+    <string name="title_activity_settings">Settings</string>
     <string name="display_time">Display Time</string>
+
+    <!--Strings for topics page-->
     <string name="topic_empty_state_header">Here is where you can view all of your study topics!</string>
     <string name="topic_empty_state_add_topics_hint">You currently have no topics to study. Add some below!</string>
-    <string name="title_activity_settings">Settings</string>
 
     <!--Strings for study questions page-->
     <string name="raw_number">%1$d</string>
     <string name="last_answer">The answer to the last question was %1$s</string>
+    <string name="answer_the_following">Answer the following questions to continue accessing this app.</string>
+    <string name="cont">Submit</string>
+    <string name="zero">0</string>
+    <string name="streak">Streak:</string>
+    <string name="attempted">Attempted:</string>
+    <string name="correct">Correct:</string>
+    <string name="answer">Answer:</string>
+    <string name="answer_here">Type the answer here</string>
 
     <!-- Strings related to Settings -->
     <string name="question_requirements">Question Requirements</string>

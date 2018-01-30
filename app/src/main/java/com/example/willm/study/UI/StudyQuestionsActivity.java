@@ -48,6 +48,8 @@ public class StudyQuestionsActivity extends AppCompatActivity {
         numCorrect = findViewById(R.id.numCorrect);
         numInARow = findViewById(R.id.numInARow);
         lastAnswer = findViewById(R.id.lastAnswer);
+        //Remove last answer text
+        lastAnswer.setText("");
     }
 
     public void getNextQuestion(){
