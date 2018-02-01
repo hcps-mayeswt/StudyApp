@@ -59,7 +59,7 @@ public class StudyQuestionsActivity extends AppCompatActivity {
         int index = (int)(Math.random() * currentTopics.size());
         Log.e("Current topics", index + "");
         String t = currentTopics.get(index);
-        Log.e("Current topics", t.toString());
+        Log.e("Current topics", t);
         //Generate the question
         Map<String, String> questionMap = TopicsHandler.getQuestion(t);
         //Display the question
@@ -111,7 +111,7 @@ public class StudyQuestionsActivity extends AppCompatActivity {
             SharedPreferences prefs = getSharedPreferences(getString(R.string.pref), MODE_PRIVATE);
             SharedPreferences.Editor editor = prefs.edit();
             editor.putLong(getString(R.string.display_time), System.currentTimeMillis() + resetTime);
-            editor.commit();
+            editor.apply();
             Log.e("Other App Monitoring", resetTime + "");
             //Return to the app that triggered the creation of this screen
             Intent launchIntent = getPackageManager().getLaunchIntentForPackage(appPackage);

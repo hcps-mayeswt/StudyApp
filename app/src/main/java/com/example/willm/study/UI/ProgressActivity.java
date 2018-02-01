@@ -14,7 +14,7 @@ public class ProgressActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_progress);
-        TextView current = (TextView)findViewById(R.id.progress_nav_bar);
+        TextView current = findViewById(R.id.progress_nav_bar);
         current.setBackground(getDrawable(R.drawable.bg_highlight));
     }
 

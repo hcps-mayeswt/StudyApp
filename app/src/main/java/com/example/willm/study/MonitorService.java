@@ -10,17 +10,12 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.IBinder;
 
-import com.example.willm.study.Topics.TopicFactory;
 import com.example.willm.study.UI.StudyQuestionsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
-
-/**
- * Created by willm on 12/21/2017.
- */
 
 public class MonitorService extends Service {
 
@@ -44,31 +39,35 @@ public class MonitorService extends Service {
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
                     //Get the apps usage stats tracker
                     UsageStatsManager usm = (UsageStatsManager) getSystemService(Context.USAGE_STATS_SERVICE);
-                    //Current time
-                    long time = System.currentTimeMillis();
+                    if(usm != null) {
+                        //Current time
+                        long time = System.currentTimeMillis();
 
-                    //Get the apps that have been used over the past 1000 seconds
-                    //This list includes the apps homescreen
-                    List<UsageStats> appList = usm.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, time - 1000 * 1000, time);
-                    //Make sure we have a list of apps
-                    if (appList != null && appList.size() > 0) {
-                        //Sort all of the apps based on when they were last used
-                        SortedMap<Long, UsageStats> mySortedMap = new TreeMap<>();
-                        for (UsageStats usageStats : appList) {
-                            mySortedMap.put(usageStats.getLastTimeUsed(), usageStats);
-                        }
-                        //Check to make sure the map isn't empty
-                        if (mySortedMap != null && !mySortedMap.isEmpty()) {
-                            //The current app is the most recently used app
-                            currentApp = mySortedMap.get(mySortedMap.lastKey()).getPackageName();
+                        //Get the apps that have been used over the past 1000 seconds
+                        //This list includes the apps homescreen
+                        List<UsageStats> appList = usm.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, time - 1000 * 1000, time);
+                        //Make sure we have a list of apps
+                        if (appList != null && appList.size() > 0) {
+                            //Sort all of the apps based on when they were last used
+                            SortedMap<Long, UsageStats> mySortedMap = new TreeMap<>();
+                            for (UsageStats usageStats : appList) {
+                                mySortedMap.put(usageStats.getLastTimeUsed(), usageStats);
+                            }
+                            //Check to make sure the map isn't empty
+                            if (!mySortedMap.isEmpty()) {
+                                //The current app is the most recently used app
+                                currentApp = mySortedMap.get(mySortedMap.lastKey()).getPackageName();
+                            }
                         }
                     }
                 } else {
                     //On pre-lollipop phones get a list of all currently running activities
                     ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-                    List<ActivityManager.RunningAppProcessInfo> tasks = am.getRunningAppProcesses();
-                    //The first app is the currently running app
-                    currentApp = tasks.get(0).processName;
+                    if(am != null) {
+                        List<ActivityManager.RunningAppProcessInfo> tasks = am.getRunningAppProcesses();
+                        //The first app is the currently running app
+                        currentApp = tasks.get(0).processName;
+                    }
                 }
                 //Ensure that the current app isn't one of a list of excluded apps
                 //TODO: Make this into an actual list, so it is extensible.
@@ -94,8 +93,7 @@ public class MonitorService extends Service {
 
     //Creates an intent to open this service from the created context
     private static Intent makeSelfIntent(Context context) {
-        Intent intent = new Intent(context, MonitorService.class);
-        return intent;
+        return new Intent(context, MonitorService.class);
     }
 
     @Override

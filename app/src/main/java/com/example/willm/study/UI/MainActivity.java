@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Function to transition the user to the topic page
     public void onTopicClick(View r){
+        Log.e("HERE", "HERE");
         startActivity(new Intent(MainActivity.this, TopicActivity.class));
     }
 

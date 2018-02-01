@@ -11,13 +11,9 @@ import android.widget.TextView;
 
 import com.example.willm.study.DBHandler;
 import com.example.willm.study.R;
-import com.example.willm.study.Topics.TopicFactory;
 
 import java.util.ArrayList;
 
-/**
- * Created by willm on 12/30/2017.
- */
 
 public class TopicAdapter extends BaseAdapter {
     private Context mContext;
@@ -98,8 +94,8 @@ public class TopicAdapter extends BaseAdapter {
 
             removeButton.setImageDrawable(mContext.getDrawable(R.drawable.remove_topics_50dp));
             removeButton.setTag(topic);
-            questionsCorrect.setText("Questions Correct: 5");
-            questionsAttempted.setText("Questions Attempted: 10");
+            questionsCorrect.setText("");
+            questionsAttempted.setText("");
             removeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

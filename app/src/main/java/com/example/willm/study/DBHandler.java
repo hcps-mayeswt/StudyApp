@@ -70,7 +70,7 @@ public class DBHandler extends SQLiteOpenHelper {
     public ArrayList<String> getSubCategories(String cat){
         ArrayList<String> cats = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_TOPICS + " WHERE " + KEY_TOPIC_CAT + "='" + cat + "'", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_TOPICS + " WHERE " + KEY_TOPIC_CAT + "='" + cat + "' AND " + KEY_CURRENT + "=0", null);
         if(cursor.moveToFirst()){
             do{
                 if(!cats.contains(cursor.getString(3)))

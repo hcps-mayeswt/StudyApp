@@ -22,6 +22,7 @@ public class TopicActivity extends AppCompatActivity {
     LinearLayout emptyState;
     FrameLayout listSpot;
     ListView currentTopicsDisplay;
+    ArrayList<String> currentTopicsList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +30,17 @@ public class TopicActivity extends AppCompatActivity {
         TextView currentPage = findViewById(R.id.topic_nav_bar);
         currentPage.setBackground(getDrawable(R.drawable.bg_highlight));
 
+        //Empty State
+        emptyState = findViewById(R.id.topics_empty_state);
+        listSpot = findViewById(R.id.topic_list_spot);
+        currentTopicsDisplay = findViewById(R.id.current_topics_list);
+        Log.e("Created", "Created");
+        updateList();
+    }
+
+    public void updateList(){
+        listSpot.removeAllViews();
+        listSpot.addView(currentTopicsDisplay);
         //Add TopicsHandler Button
         final ImageButton addTopics = new ImageButton(this);
         addTopics.setImageDrawable(getDrawable(R.drawable.add_topics_small));
@@ -39,20 +51,19 @@ public class TopicActivity extends AppCompatActivity {
                 goToAddTopics(view);
             }
         });
-
-        //Empty State
-        emptyState = findViewById(R.id.topics_empty_state);
-        listSpot = findViewById(R.id.topic_list_spot);
-        currentTopicsDisplay = findViewById(R.id.current_topics_list);
         DBHandler db = new DBHandler(this);
-        ArrayList<String> currentTopicsList = db.getCurrentTopics();
+        currentTopicsList = db.getCurrentTopics();
         Log.e("Reading from database", "Current " + currentTopicsList.toString());
         //Fill the topics list
         if(currentTopicsList != null && currentTopicsList.size() > 0) {
+            currentTopicsDisplay.setAdapter(null);
             final TopicAdapter currentTopics = new TopicAdapter(this, currentTopicsList, this, false);
             currentTopicsDisplay.setAdapter(currentTopics);
-            currentTopicsDisplay.addFooterView(addTopics);
+            if(currentTopicsDisplay.getFooterViewsCount() == 0) {
+                currentTopicsDisplay.addFooterView(addTopics);
+            }
             listSpot.removeView(emptyState);
+            currentTopicsDisplay.deferNotifyDataSetChanged();
         }
         else{
             showEmptyState();
@@ -64,6 +75,15 @@ public class TopicActivity extends AppCompatActivity {
         listSpot.addView(emptyState);
     }
 
+    //Ensure that the topics page is always properly loaded
+    @Override
+    public void onRestart() {
+        Log.e("Restarted", "Restarted");
+        super.onRestart();
+        updateList();
+    }
+
+    //NAVBAR
     public void goToAddTopics(View view){
         startActivity(new Intent(TopicActivity.this, AddTopicsActivity.class));
     }

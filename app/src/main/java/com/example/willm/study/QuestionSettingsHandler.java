@@ -5,10 +5,6 @@ import android.content.SharedPreferences;
 import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
 
-/**
- * Created by willm on 1/16/2018.
- */
-
 public class QuestionSettingsHandler {
     //Keys for question settings preferences
     public static final String KEY_PRIMARY_REQ_TYPE = "primary_req_type";
@@ -67,5 +63,4 @@ public class QuestionSettingsHandler {
         }
         return false;
     }
-
 }
