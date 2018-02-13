@@ -157,7 +157,7 @@ public class QuestionSettingsActivity extends AppCompatActivity {
                         SharedPreferences.Editor edit = prefs.edit();
                         String[] durs = getResources().getStringArray(R.array.pref_unlock_dur_values);
                         String selected = durs[i];
-                        edit.putString(QuestionSettingsHandler.KEY_PRIMARY_REQ, selected);
+                        edit.putString(QuestionSettingsHandler.KEY_UNLOCK_DURATION, selected);
                         edit.apply();
                     }
 

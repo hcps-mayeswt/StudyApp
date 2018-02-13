@@ -1,4 +1,6 @@
 <resources>
+    <!-- BETA MESSAGE-->
+    <string name="beta">Thank you for participating in the beta tests for this app. This page is not yet complete, please come back at a later update to try it out.</string>
     <!--General and Homepage Strings-->
     <string name="app_name">Study!</string>
     <string name="topic">Topics</string>

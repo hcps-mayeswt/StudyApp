@@ -15,7 +15,15 @@
         android:textColor="#FFFFFF"
         android:textSize="36sp"
         android:textStyle="bold"/>
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/beta"
+        android:fontFamily="serif"
+        android:textColor="#000000"
+        android:textSize="36sp"
+        android:textStyle="bold"/>
     <!--Nav Bar-->
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
