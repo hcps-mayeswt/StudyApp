@@ -73,6 +73,7 @@ public class MonitorService extends Service {
                         currentApp = tasks.get(0).processName;
                     }
                 }
+                Log.e("Other App Monitoring", "Current App in foreground is: " + currentApp);
                 if (!currentApp.contains("willm.study")) {
                     mHandler.postDelayed(appTracker, 5000);
                 }
@@ -138,8 +139,8 @@ public class MonitorService extends Service {
                     //Record the current app so the page can go back to the correct place
                     presentQuestions.putExtra("App", currentApp);
                     startActivity(presentQuestions);
-                    Log.e("Other App Monitoring", "Current App in foreground is: " + currentApp);
                 }
+                Log.e("Other App Monitoring", "Current App in foreground is: " + currentApp);
                 if(!currentApp.contains("willm.study")){
                     mHandler.postDelayed(appTracker, REPEAT_INTERVAL);
                 }

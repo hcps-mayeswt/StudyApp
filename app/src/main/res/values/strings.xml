@@ -36,6 +36,7 @@
     <string name="primary_req">Primary Requirements</string>
     <string name="secondary_req">Secondary Requirements</string>
     <string name="unlock_dur">Unlock Duration</string>
+
     <!-- Unlock Times Arrays-->
     <string-array name="pref_unlock_dur_titles">
         <item>10 Minutes</item>
@@ -65,6 +66,30 @@
         <item>None</item>
     </string-array>
 
+    <string-array name="pref_reqs_attempted">
+        <item>1 Attempted</item>
+        <item>2 Attempted</item>
+        <item>3 Attempted</item>
+        <item>4 Attempted</item>
+        <item>5 Attempted</item>
+    </string-array>
+
+    <string-array name="pref_reqs_correct">
+        <item>1 Correct</item>
+        <item>2 Correct</item>
+        <item>3 Correct</item>
+        <item>4 Correct</item>
+        <item>5 Correct</item>
+    </string-array>
+
+    <string-array name="pref_reqs_streak">
+        <item>1 In-A-Row</item>
+        <item>2 In-A-Row</item>
+        <item>3 In-A-Row</item>
+        <item>4 In-A-Row</item>
+        <item>5 In-A-Row</item>
+    </string-array>
+
     <string-array name="pref_reqs">
         <item>1</item>
         <item>2</item>
@@ -72,5 +97,14 @@
         <item>4</item>
         <item>5</item>
     </string-array>
+
+    <!--App Settings-->
+
+    <string name="require_pin">Require Passcode To Access App Pages</string>
+    <string name="pin">Passcode</string>
+    <string name="no_passcode">No Passcode Set</string>
+    <string name="edit_passcode">Edit Passcode</string>
+    <string name="save_passcode">Save Passcode</string>
+    <string name="security">Security</string>
 
 </resources>

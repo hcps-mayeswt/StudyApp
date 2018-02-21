@@ -15,7 +15,111 @@
         android:textColor="#FFFFFF"
         android:textSize="36sp"
         android:textStyle="bold"/>
-    <TextView
+
+    <!--Settings-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/question_settings"
+        android:orientation="vertical"
+        android:layout_marginTop="60dp">
+        <!--Security-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/security_group_and_header">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:id="@+id/security_group_header"
+                android:onClick="expandAndHideGroup"
+                android:background="@drawable/question_settings_headers"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/security"
+                    android:textSize="28sp"
+                    android:textColor="#000000"
+                    />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|right"
+                    android:src="@drawable/ic_arrow_drop_down_black_24dp"
+                    android:id="@+id/security_arrow"
+                    android:foregroundGravity="center"/>
+            </FrameLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/security_group"
+                android:orientation="vertical">
+                <!--Require Pin-->
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/require_pin"
+                    android:layout_marginBottom="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/require_pin"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp" />
+
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/require_pin_val"
+                        android:layout_gravity="end"
+                        android:buttonTint="@color/appSettingsMain"/>
+                </FrameLayout>
+                <!--Pin-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/pin"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="10dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pin"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <EditText
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:id="@+id/pin_val"
+                            android:buttonTint="@color/appSettingsMain"
+                            android:hint="@string/no_passcode"
+                            android:inputType="textPassword"/>
+                        <Button
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:text="@string/edit_passcode"
+                            android:onClick="passcodeHandling"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <!--TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
@@ -23,7 +127,7 @@
         android:fontFamily="serif"
         android:textColor="#000000"
         android:textSize="36sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"/-->
     <!--Nav Bar-->
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"

@@ -9,6 +9,7 @@
 
     <PreferenceCategory android:title="Question Requirements">
 
+
         <ListPreference
             android:defaultValue="Number Attempted"
             android:entries="@array/pref_req_types"
@@ -48,6 +49,13 @@
             android:key="unlock_duration"
             android:title="Unlock Duration" />
     </PreferenceCategory>
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="require_pin"
+        android:title="Require Pin" />
+    <EditTextPreference
+        android:key="pin"
+        android:title="Passcode"/>
     <!--PreferenceCategory android:title="Progress Reporting">
 
         <CheckBoxPreference
