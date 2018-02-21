@@ -67,6 +67,11 @@ public class AppSettingsActivity extends AppCompatActivity {
             }
         });
         pin.setText(pinVal);
+        if(!usePinVal){
+            LinearLayout securityGroup = findViewById(R.id.security_group);
+            securityGroup.removeView(pinLayout);
+        }
+
         Log.e("App Settings", usePinVal + "");
     }
 

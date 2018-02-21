@@ -11,9 +11,12 @@ import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.willm.study.AppSettingsHandler;
 import com.example.willm.study.DBHandler;
 import com.example.willm.study.MonitorService;
+import com.example.willm.study.QuestionSettingsHandler;
 import com.example.willm.study.R;
 import com.example.willm.study.Topics.TopicsHandler;
 
@@ -80,24 +83,66 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Function to transition the user to the topic page
-    public void onTopicClick(View r){
-        Log.e("HERE", "HERE");
-        startActivity(new Intent(MainActivity.this, TopicActivity.class));
+    public void onTopicClick(final View r){
+        AppSettingsHandler.promptForPassword(this, new Runnable() {
+            @Override
+            public void run() {
+                startActivity(new Intent(MainActivity.this, TopicActivity.class));
+            }
+        }, new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(MainActivity.this, "Password was incorrect", Toast.LENGTH_SHORT).show();
+                onTopicClick(r);
+            }
+        });
     }
 
     //Function to transition the user to the progress page
-    public void onProgressClick(View r){
-        startActivity(new Intent(MainActivity.this, ProgressActivity.class));
+    public void onProgressClick(final View r){
+        AppSettingsHandler.promptForPassword(this, new Runnable() {
+            @Override
+            public void run() {
+                startActivity(new Intent(MainActivity.this, ProgressActivity.class));
+            }
+        }, new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(MainActivity.this, "Password was incorrect", Toast.LENGTH_SHORT).show();
+                onProgressClick(r);
+            }
+        });
     }
 
     //Function to transition the user to the topic page
-    public void onAppSettingsClick(View r){
-        startActivity(new Intent(MainActivity.this, AppSettingsActivity.class));
+    public void onAppSettingsClick(final View r){
+        AppSettingsHandler.promptForPassword(this, new Runnable() {
+            @Override
+            public void run() {
+                startActivity(new Intent(MainActivity.this, AppSettingsActivity.class));
+            }
+        }, new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(MainActivity.this, "Password was incorrect", Toast.LENGTH_SHORT).show();
+                onAppSettingsClick(r);
+            }
+        });
     }
 
     //Function to transition the user to the topic page
-    public void onQuestionSettingsClick(View r){
-
-        startActivity(new Intent(MainActivity.this, QuestionSettingsActivity.class));
+    public void onQuestionSettingsClick(final View r){
+        AppSettingsHandler.promptForPassword(this, new Runnable() {
+            @Override
+            public void run() {
+                startActivity(new Intent(MainActivity.this, QuestionSettingsActivity.class));
+            }
+        }, new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(MainActivity.this, "Password was incorrect", Toast.LENGTH_SHORT).show();
+                onQuestionSettingsClick(r);
+            }
+        });
     }
 }
