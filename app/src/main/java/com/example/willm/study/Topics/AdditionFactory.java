@@ -11,23 +11,19 @@ import java.util.Map;
  */
 
 public class AdditionFactory extends TopicFactory {
-    public AdditionFactory(String name, boolean comp){
+    public AdditionFactory(String name, int min, int max){
         title = name;
         cat = "Math";
         subCat = "Addition";
-        complex = comp;
+        minVal = min;
+        maxVal = max;
     }
     @Override
     public Map<String, String> generateQuestion(){
         Map<String, String> question = new HashMap<>();
         int num1, num2;
-        if(complex){
-            num1 = (int)(Math.random() * 100);
-            num2 = (int)(Math.random() * 100);
-        }else{
-            num1 = (int)(Math.random() * 10);
-            num2 = (int)(Math.random() * 10);
-        }
+        num1 = (int)(Math.random() * (maxVal - minVal + 1) + minVal);
+        num2 = (int)(Math.random() * (maxVal - minVal + 1) + minVal);
         int ans = num1 + num2;
         question.put("question", num1 + " + " + num2);
         question.put("answer", Integer.toString(ans));

@@ -10,24 +10,19 @@ import java.util.Map;
  */
 
 public class DivisionFactory extends TopicFactory {
-    public DivisionFactory(String name, boolean comp){
+    public DivisionFactory(String name, int min, int max){
         title = name;
         cat = "Math";
         subCat = "Division";
-        complex = comp;
+        minVal = min;
+        maxVal = max;
     }
     @Override
     public Map<String, String> generateQuestion(){
         Map<String, String> question = new HashMap<>();
         int num1, num2, ans;
-        if(complex){
-            num2 = (int)(Math.random() * 25) + 1;
-            ans = (int)(Math.random() * 25) + 1;
-        }
-        else{
-            num2 = (int)(Math.random() * 10) + 1;
-            ans = (int)(Math.random() * 10) + 1;
-        }
+        num2 = (int)(Math.random() * (maxVal - minVal + 1) + minVal);
+        ans = (int)(Math.random() * (maxVal - minVal + 1) + minVal);
         num1 = ans * num2;
         question.put("question", num1 + " / " + num2);
         question.put("answer", Integer.toString(ans));

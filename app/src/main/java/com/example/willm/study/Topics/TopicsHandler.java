@@ -7,35 +7,22 @@ import java.util.Map;
  */
 
 public class TopicsHandler {
-    public static Map<String, String> getQuestion(String topic){
+    public static Map<String, String> getQuestion(String topic, int minVal, int maxVal){
         TopicFactory factory;
-        switch(topic){
-            case "Single Digit Addition":
-                factory = new AdditionFactory(topic, false);
-                break;
-            case "Double Digit Addition":
-                factory = new AdditionFactory(topic, true);
-                break;
-            case "Multiplication Tables":
-                factory = new MultiplicationFactory(topic, false);
-                break;
-            case "Multiplication to 100":
-                factory = new MultiplicationFactory(topic, true);
-                break;
-            case "Single Digit Subtraction":
-                factory = new SubtractionFactory(topic, false);
-                break;
-            case "Double Digit Subtraction":
-                factory = new SubtractionFactory(topic, true);
-                break;
-            case "Simple Division":
-                factory = new DivisionFactory(topic, false);
-                break;
-            case "Long Division":
-                factory = new DivisionFactory(topic, true);
-                break;
-            default:
-                return null;
+        if(topic.contains("Addition")){
+            factory = new AdditionFactory(topic, minVal, maxVal);
+        }
+        else if(topic.contains("Subtraction")){
+            factory = new SubtractionFactory(topic, minVal, maxVal);
+        }
+        else if(topic.contains("Multiplication")){
+            factory = new MultiplicationFactory(topic, minVal, maxVal);
+        }
+        else if(topic.contains("Division")){
+            factory = new DivisionFactory(topic, minVal, maxVal);
+        }
+        else{
+            return null;
         }
         return factory.generateQuestion();
     }

@@ -10,7 +10,7 @@ public abstract class TopicFactory {
     protected String title;
     protected String cat;
     protected String subCat;
-    protected boolean complex;
+    protected int minVal, maxVal;
     public abstract Map<String, String> generateQuestion();
     @Override
     public String toString(){
@@ -25,5 +25,6 @@ public abstract class TopicFactory {
     public String getSubCat(){
         return subCat + "";
     }
-    public boolean getComplex(){return complex;}
+    public int getMinVal(){return minVal;}
+    public int getMaxVal(){return maxVal;}
 }

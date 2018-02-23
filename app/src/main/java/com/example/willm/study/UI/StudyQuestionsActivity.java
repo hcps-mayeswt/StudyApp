@@ -15,6 +15,7 @@ import com.example.willm.study.R;
 import com.example.willm.study.Topics.TopicsHandler;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public class StudyQuestionsActivity extends AppCompatActivity {
@@ -54,14 +55,15 @@ public class StudyQuestionsActivity extends AppCompatActivity {
 
     public void getNextQuestion(){
         //Randomly Choose TopicFactory
-        ArrayList<String> currentTopics = db.getCurrentTopics();
+        ArrayList<HashMap<String, String>> currentTopics = db.getCurrentTopics();
         Log.e("Current topics", currentTopics.toString());
         int index = (int)(Math.random() * currentTopics.size());
         Log.e("Current topics", index + "");
-        String t = currentTopics.get(index);
-        Log.e("Current topics", t);
+        String t = currentTopics.get(index).get("name");
+        int min = Integer.parseInt(currentTopics.get(index).get("min"));
+        int max = Integer.parseInt(currentTopics.get(index).get("max"));
         //Generate the question
-        Map<String, String> questionMap = TopicsHandler.getQuestion(t);
+        Map<String, String> questionMap = TopicsHandler.getQuestion(t, min, max);
         //Display the question
         TextView questionText = findViewById(R.id.question);
         questionText.setText(questionMap.get("question"));
@@ -115,7 +117,11 @@ public class StudyQuestionsActivity extends AppCompatActivity {
             Log.e("Other App Monitoring", resetTime + "");
             //Return to the app that triggered the creation of this screen
             Intent launchIntent = getPackageManager().getLaunchIntentForPackage(appPackage);
-            startActivity(launchIntent);
+            try {
+                startActivity(launchIntent);
+            }catch(Exception e){
+
+            }
             //Remove this activity from the task tray
             if (android.os.Build.VERSION.SDK_INT >= 21) {
                 Log.e("Other App Monitoring", "Removing Task");

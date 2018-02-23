@@ -14,6 +14,7 @@ import android.util.Log;
 import com.example.willm.study.UI.StudyQuestionsActivity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -29,7 +30,7 @@ public class MonitorService extends Service {
     private final Runnable appTrackerHelper = new Runnable(){
         @Override
         public void run(){
-            ArrayList<String> currentTopics = db.getCurrentTopics();
+            ArrayList<HashMap<String, String>> currentTopics = db.getCurrentTopics();
             //Get the time when the lockout screen should next be displayed
             SharedPreferences prefs = getSharedPreferences(getString(R.string.pref), MODE_PRIVATE);
             long displayTime = prefs.getLong(getString(R.string.display_time), 0);
@@ -87,7 +88,7 @@ public class MonitorService extends Service {
     private final Runnable appTracker = new Runnable(){
         @Override
         public void run(){
-            ArrayList<String> currentTopics = db.getCurrentTopics();
+            ArrayList<String> currentTopics = db.getCurrentTopics(true);
             //Get the time when the lockout screen should next be displayed
             SharedPreferences prefs = getSharedPreferences(getString(R.string.pref), MODE_PRIVATE);
             long displayTime = prefs.getLong(getString(R.string.display_time), 0);

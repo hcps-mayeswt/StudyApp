@@ -52,7 +52,7 @@ public class TopicActivity extends AppCompatActivity {
             }
         });
         DBHandler db = new DBHandler(this);
-        currentTopicsList = db.getCurrentTopics();
+        currentTopicsList = db.getCurrentTopics(true);
         Log.e("Reading from database", "Current " + currentTopicsList.toString());
         //Fill the topics list
         if(currentTopicsList != null && currentTopicsList.size() > 0) {
