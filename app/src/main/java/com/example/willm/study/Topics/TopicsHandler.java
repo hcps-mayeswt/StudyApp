@@ -1,5 +1,7 @@
 package com.example.willm.study.Topics;
 
+import android.content.Context;
+
 import java.util.Map;
 
 /**
@@ -7,7 +9,7 @@ import java.util.Map;
  */
 
 public class TopicsHandler {
-    public static Map<String, String> getQuestion(String topic, int minVal, int maxVal){
+    public static Map<String, String> getQuestion(String topic, int minVal, int maxVal, Context c){
         TopicFactory factory;
         if(topic.contains("Addition")){
             factory = new AdditionFactory(topic, minVal, maxVal);
@@ -22,7 +24,7 @@ public class TopicsHandler {
             factory = new DivisionFactory(topic, minVal, maxVal);
         }
         else{
-            return null;
+            factory = new VocabTopic(topic, c);
         }
         return factory.generateQuestion();
     }

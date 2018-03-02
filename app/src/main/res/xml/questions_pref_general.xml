@@ -11,7 +11,7 @@
 
 
         <ListPreference
-            android:defaultValue="Number Attempted"
+            android:defaultValue="# Attempted"
             android:entries="@array/pref_req_types"
             android:entryValues="@array/pref_req_types"
             android:key="primary_req_type"

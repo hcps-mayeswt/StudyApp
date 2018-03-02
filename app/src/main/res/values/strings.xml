@@ -15,7 +15,13 @@
     <!--Strings for topics page-->
     <string name="topic_empty_state_header">Here is where you can view all of your study topics!</string>
     <string name="topic_empty_state_add_topics_hint">You currently have no topics to study. Add some below!</string>
-
+    <string name="custom_questions">Create Custom Question Set</string>
+    <string name="submit">Submit</string>
+    <string name="question">Question/Definition</string>
+    <string name="question_hint">Question/Definition Here</string>
+    <string name="answer_to_term">Answer/Term</string>
+    <string name="answer_hint">Answer/Term Here</string>
+    <string name="add_term">Add Term</string>
     <!--Strings for study questions page-->
     <string name="raw_number">%1$d</string>
     <string name="last_answer">The answer to the last question was %1$s</string>

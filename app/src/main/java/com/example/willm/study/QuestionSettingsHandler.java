@@ -34,7 +34,7 @@ public class QuestionSettingsHandler {
         Log.e("Attempted", attempts + "");
         Log.e("Attempted", correct + "");
         switch(primaryReqType){
-            case "# Attempted":
+            case "Number Attempted":
                 if(attempts >= primaryReq) return true;
                 break;
             case "# Correct":
@@ -49,13 +49,13 @@ public class QuestionSettingsHandler {
         String secondaryReqType = prefs.getString(KEY_SECONDARY_REQ_TYPE, "");
         int secondaryReq = Integer.parseInt(prefs.getString(KEY_SECONDARY_REQ, "0"));
         switch(secondaryReqType){
-            case "Number Attempted":
+            case "# Attempted":
                 if(attempts >= secondaryReq) return true;
                 break;
-            case "Number Correct":
+            case "# Correct":
                 if(correct >= secondaryReq) return true;
                 break;
-            case "Number Correct In-A-Row":
+            case "# Correct In-A-Row":
                 if(inARow >= secondaryReq) return true;
                 break;
             default:

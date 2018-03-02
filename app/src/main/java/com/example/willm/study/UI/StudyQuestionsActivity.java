@@ -63,7 +63,7 @@ public class StudyQuestionsActivity extends AppCompatActivity {
         int min = Integer.parseInt(currentTopics.get(index).get("min"));
         int max = Integer.parseInt(currentTopics.get(index).get("max"));
         //Generate the question
-        Map<String, String> questionMap = TopicsHandler.getQuestion(t, min, max);
+        Map<String, String> questionMap = TopicsHandler.getQuestion(t, min, max, this);
         //Display the question
         TextView questionText = findViewById(R.id.question);
         questionText.setText(questionMap.get("question"));
