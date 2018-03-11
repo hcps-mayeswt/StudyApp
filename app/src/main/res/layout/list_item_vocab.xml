@@ -8,28 +8,29 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:text=""
+        android:gravity="center_vertical"
         android:textSize="22sp"
         android:color="#000000"
         android:id="@+id/term"
-        android:background="@drawable/border_2_dp"/>
+        android:paddingLeft="15dp"/>
     <TextView
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:textSize="22sp"
         android:text=""
+        android:gravity="center_vertical"
         android:color="#000000"
         android:id="@+id/definition"
-        android:background="@drawable/border_2_dp"/>
+        android:paddingLeft="15dp"
+        android:background="@drawable/left_border_subtle"/>
     <ImageButton
         android:id="@+id/topic_list_remove"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
         android:layout_marginEnd="2dp"
         android:padding="4dp"
-        android:background="@null"
-        android:textSize="14sp"
+        android:background="@drawable/left_border_subtle"
         android:gravity="center"
         android:src="@drawable/remove_topics_50dp"
         />

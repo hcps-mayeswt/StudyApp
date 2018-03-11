@@ -6,7 +6,10 @@
     tools:context="com.example.willm.study.UI.TopicActivity"
     android:orientation="vertical"
     android:id="@+id/topics_page"
-    >
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="60dp"

@@ -42,13 +42,13 @@
             android:theme="@style/OpeningPageTheme" />
         <activity
             android:name=".UI.AddTopicsActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/TopicsTheme" />
         <activity
             android:name=".UI.QuestionSettingsActivity"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".UI.QuestionSetCreation"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/TopicsTheme"/>
         <!-- android:label="@string/title_activity_question_settings" -->
     </application>
 

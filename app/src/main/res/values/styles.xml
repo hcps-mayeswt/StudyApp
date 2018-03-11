@@ -1,11 +1,8 @@
 <resources>
 
     <!-- Base navigation theme. -->
-    <style name="NavTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="NavTheme" parent="MyMaterialTheme.Base">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
     </style>
     <!-- Base application theme. -->
     <style name="OpeningPageTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -15,12 +12,19 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="MyMaterialTheme.Base">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimary</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
     </style>
 
+    <style name="TopicsTheme" parent="MyMaterialTheme.Base">
+        <item name="colorAccent">@color/topicsMain</item>
+    </style>
+
+    <style name="MyMaterialTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
 </resources>

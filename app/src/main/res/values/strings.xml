@@ -22,6 +22,10 @@
     <string name="answer_to_term">Answer/Term</string>
     <string name="answer_hint">Answer/Term Here</string>
     <string name="add_term">Add Term</string>
+    <string name="term">Term</string>
+    <string name="definition">Definition</string>
+    <string name="term_empty_state_header">On this page you can create custom study sets by creating question/answer pairs!</string>
+    <string name="term_empty_state_hint">Use the plus button to create question/answer pairs.</string>
     <!--Strings for study questions page-->
     <string name="raw_number">%1$d</string>
     <string name="last_answer">The answer to the last question was %1$s</string>

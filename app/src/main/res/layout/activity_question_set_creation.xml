@@ -4,66 +4,96 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
     tools:context="com.example.willm.study.UI.QuestionSetCreation"
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/termList"/>
+        <!--Headers-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <LinearLayout
-                android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:id="@+id/list_header">
+            <!--Term-->
+            <TextView
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation = "vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/question"
-                    android:textSize="20sp"
-                    android:textColor="#000000"/>
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/question_hint"
-                    android:id="@+id/def"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:paddingLeft="15dp"
+                android:text="@string/term"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+            <!--Definition-->
+            <TextView
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation = "vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/answer_to_term"
-                    android:textSize="20sp"
-                    android:textColor="#000000"/>
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/answer_hint"
-                    android:id="@+id/addTerm"/>
-            </LinearLayout>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/add_term"
-                android:onClick="addNew"
-                />
+                android:layout_weight="1"
+                android:paddingLeft="15dp"
+                android:background="@drawable/left_border_subtle"
+                android:text="@string/definition"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+            <!--Space Filler-->
+            <TextView
+                android:layout_width="59dp"
+                android:layout_height="15dp"
+                android:background="@drawable/left_border_subtle"/>
         </LinearLayout>
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-25dp"
+            android:id="@+id/termList"/>
     </LinearLayout>
-    <Button
+    <!--Empty State-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/term_empty_state"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="100"
+            android:text="@string/term_empty_state_header"
+            android:textColor="#000000"
+            android:textSize="40sp"
+            android:gravity="center"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="99"
+            android:text="@string/term_empty_state_hint"
+            android:textColor="#000000"
+            android:textSize="32sp"
+            android:gravity="center_horizontal"/>
+    </LinearLayout>
+    <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/submit"
-        android:layout_gravity="center|bottom"
-        android:layout_marginBottom="20dp"
-        android:onClick="createSet"/>
+        android:src="@drawable/ic_add_black_24dp"
+        android:tint="@color/bg"
+        app:backgroundTint="@color/topicsMain"
+        android:background="@null"
+        android:layout_gravity="bottom|start"
+        android:layout_margin="@dimen/fab_margin"
+        android:onClick="addNew"/>
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_check_black_24dp"
+        android:id = "@+id/submit_button"
+        app:backgroundTint="@color/colorPrimary"
+        android:tint="@color/bg"
+        android:background="@null"
+        android:layout_gravity="bottom|end"
+        android:onClick="createSet"
+        android:layout_margin="@dimen/fab_margin"/>
 </FrameLayout>

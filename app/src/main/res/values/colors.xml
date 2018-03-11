@@ -7,4 +7,5 @@
     <color name="progressMain">#FF7700</color>
     <color name="questionSettingsMain">#068267</color>
     <color name="appSettingsMain">#052F5F</color>
+    <color name="bg">#FAFAFA</color>
 </resources>
