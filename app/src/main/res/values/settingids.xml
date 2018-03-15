@@ -12,4 +12,7 @@
     <item
         type="id"
         name="parent_id"/>
+    <item
+        type="id"
+        name="term_remove"/>
 </resources>

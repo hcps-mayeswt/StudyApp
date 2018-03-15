@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.willm.study.DBHandler;
@@ -24,12 +25,14 @@ public class TermAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private ArrayList<HashMap<String, String>> mDataSource;
     private QuestionSetCreation qsActivity;
+    private View.OnTouchListener mTouchListener;
 
-    public TermAdapter(Context context, ArrayList<HashMap<String, String>> items, QuestionSetCreation activity){
+    public TermAdapter(Context context, ArrayList<HashMap<String, String>> items, QuestionSetCreation activity, View.OnTouchListener tl){
         mContext = context;
         mDataSource = items;
         mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         qsActivity = activity;
+        mTouchListener = tl;
     }
 
 
@@ -71,14 +74,18 @@ public class TermAdapter extends BaseAdapter {
             definitionView.setText(definition);
             termView.setText(term.get(definition));
         }
-        ImageButton removeButton = rowView.findViewById(R.id.topic_list_remove);
+        /*ImageButton removeButton = rowView.findViewById(R.id.topic_list_remove);
         removeButton.setTag(position);
         removeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 qsActivity.remove((int)v.getTag());
             }
-        });
+        });*/
+
+        LinearLayout wrapper = rowView.findViewById(R.id.term_wrapper);
+        rowView.setTag(position);
+        rowView.setOnTouchListener(mTouchListener);
 
         return rowView;
     }

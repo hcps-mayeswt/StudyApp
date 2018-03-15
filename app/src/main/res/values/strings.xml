@@ -11,6 +11,7 @@
     <string name="pref">My Preferences</string>
     <string name="title_activity_settings">Settings</string>
     <string name="display_time">Display Time</string>
+    <string name="new_line_text">%1$s\n</string>
 
     <!--Strings for topics page-->
     <string name="topic_empty_state_header">Here is where you can view all of your study topics!</string>
@@ -24,6 +25,7 @@
     <string name="add_term">Add Term</string>
     <string name="term">Term</string>
     <string name="definition">Definition</string>
+    <string name="custom_q_set">Custom Question Set</string>
     <string name="term_empty_state_header">On this page you can create custom study sets by creating question/answer pairs!</string>
     <string name="term_empty_state_hint">Use the plus button to create question/answer pairs.</string>
     <!--Strings for study questions page-->
