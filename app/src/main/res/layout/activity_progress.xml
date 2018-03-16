@@ -12,14 +12,15 @@
     tools:context="com.example.willm.study.UI.ProgressActivity">
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="56dp"
         android:background="@drawable/progress_bg"
         android:gravity="center"
         android:text="@string/progress"
         android:fontFamily="serif"
         android:textColor="#FFFFFF"
         android:textSize="36sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:elevation="3dp"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

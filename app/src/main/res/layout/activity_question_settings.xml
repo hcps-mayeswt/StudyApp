@@ -12,21 +12,22 @@
     android:background="#FFFFFF">
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="56dp"
         android:background="@drawable/question_settings_bg"
         android:gravity="center"
         android:text="@string/question_settings"
         android:fontFamily="serif"
         android:textColor="#FFFFFF"
         android:textSize="36sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:elevation="3dp"/>
     <!--Settings-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/question_settings"
         android:orientation="vertical"
-        android:layout_marginTop="60dp">
+        android:layout_marginTop="56dp">
         <!--Question Requirements-->
         <LinearLayout
             android:layout_width="match_parent"

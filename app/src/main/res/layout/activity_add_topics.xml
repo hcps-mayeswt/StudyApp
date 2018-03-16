@@ -12,14 +12,15 @@
     tools:context="com.example.willm.study.UI.AddTopicsActivity">
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="56dp"
         android:background="@drawable/topic_bg"
         android:gravity="center"
         android:text="@string/topic"
         android:fontFamily="serif"
         android:textColor="#FFFFFF"
         android:textSize="36sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:elevation="3dp"/>
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

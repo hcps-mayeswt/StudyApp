@@ -23,8 +23,7 @@
             android:fontFamily="serif-medium"
             android:textSize="36sp"
             android:text="@string/custom_q_set"
-            android:textColor="#FFFFFF"
-            android:style="bold"/>
+            android:textColor="#FFFFFF"/>
     </FrameLayout>
     <FrameLayout
         android:layout_width="match_parent"
