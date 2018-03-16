@@ -94,7 +94,8 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_gravity="center"
-        android:background="@drawable/center_circle"/>
+        android:background="@drawable/center_circle"
+        android:elevation="1dp"/>
     <!--App Center Display-->
     <TextView
         android:layout_width="150dp"
@@ -108,7 +109,8 @@
         android:textColor="#FFFFFF"
         android:textSize="36sp"
         android:textStyle="bold"
-        android:onClick="onCenterClick"/>
+        android:onClick="onCenterClick"
+        android:elevation="3dp"/>
 
 
 </FrameLayout>
