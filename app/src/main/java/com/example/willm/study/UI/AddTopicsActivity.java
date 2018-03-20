@@ -53,6 +53,12 @@ public class AddTopicsActivity extends AppCompatActivity {
         addTopicsDisplay.addFooterView(createCustomQuestions);
     }
 
+    public void refreshData(){
+        addTopicsDisplay.setAdapter(null);
+        currentTopics = new TopicAdapter(this, displayList, this, true);
+        addTopicsDisplay.setAdapter(currentTopics);
+    }
+
     public void createQuestions(){
         Intent startActivity = new Intent(AddTopicsActivity.this, QuestionSetCreation.class);
         //startActivity.putExtra("vocabList", "WWII");
@@ -151,10 +157,12 @@ public class AddTopicsActivity extends AppCompatActivity {
                         displayList = db.getTopicsBySubCategory(currentQuery);
                         Log.e("List ", displayList.toString());
                         while (displayList.size() == 0) {
+                            Log.e("List", "In Here, updating data");
                             currentQuery = queryHistory.pop();
                             if (currentQuery.equals("Categories")) {
                                 displayList = db.getAllCategories();
                                 addTopicsDisplay.addFooterView(createCustomQuestions);
+                                refreshData();
                             } else {
                                 displayList = db.getSubCategories(currentQuery);
                             }

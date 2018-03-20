@@ -84,6 +84,7 @@ public class TopicAdapter extends BaseAdapter {
                 public void onClick(View view) {
                     Log.e("ADDING TOPICS", "VIEW ITEM CLICKED");
                     mDataSource = addTopicsActivity.onListClicked((String)view.getTag());
+                    //addTopicsActivity.refreshData();
                     adapter.notifyDataSetChanged();
                 }
             });
