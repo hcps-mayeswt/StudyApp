@@ -1,7 +1,9 @@
 package com.example.willm.study.UI;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +11,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.willm.study.DBHandler;
 import com.example.willm.study.R;
@@ -51,7 +54,15 @@ public class AddTopicsActivity extends AppCompatActivity {
     }
 
     public void createQuestions(){
-        startActivity(new Intent(AddTopicsActivity.this, QuestionSetCreation.class));
+        Intent startActivity = new Intent(AddTopicsActivity.this, QuestionSetCreation.class);
+        //startActivity.putExtra("vocabList", "WWII");
+        startActivity(startActivity);
+    }
+
+    public void editQuestionSet(String setTitle){
+        Intent startActivity = new Intent(AddTopicsActivity.this, QuestionSetCreation.class);
+        startActivity.putExtra("vocabList", setTitle);
+        startActivity(startActivity);
     }
 
     @Override
@@ -92,9 +103,9 @@ public class AddTopicsActivity extends AppCompatActivity {
         }
     }
 
-    public ArrayList<String> onListClicked(String listTag){
+    public ArrayList<String> onListClicked(final String listTag){
         Log.e("Adding Topics", queryHistory.toString());
-        DBHandler db = new DBHandler(this);
+        final DBHandler db = new DBHandler(this);
         addTopicsDisplay.removeFooterView(createCustomQuestions);
         if(queryHistory.isEmpty()){
             Log.e("Adding Topics", listTag);
@@ -106,6 +117,15 @@ public class AddTopicsActivity extends AppCompatActivity {
             if(displayList.size() == 0){
                 queryHistory.push(currentQuery);
                 displayList = (ArrayList<String>)db.getTopicsByCategory(listTag);
+                if(displayList.size() == 0){
+                    while(!queryHistory.isEmpty()){
+                        queryHistory.pop();
+                    }
+                    currentQuery = "Categories";
+                    displayList = db.getAllCategories();
+                    Toast.makeText(this, "No available topics", Toast.LENGTH_SHORT).show();
+                    addTopicsDisplay.addFooterView(createCustomQuestions);
+                }
             }
             Log.e("Adding Topics", displayList.toString());
         }
@@ -120,17 +140,49 @@ public class AddTopicsActivity extends AppCompatActivity {
             Log.e(currentQuery, displayList.toString());
         }
         else{
-            //ADD TOPICS
-            db.updateCurrent(listTag, (byte)1);
-            displayList = db.getTopicsBySubCategory(currentQuery);
-            while(displayList.size() == 0){
-                currentQuery = queryHistory.pop();
-                if(currentQuery.equals("Categories")){
-                    displayList = db.getAllCategories();
-                    addTopicsDisplay.addFooterView(createCustomQuestions);
-                }
-                else{
-                    displayList = db.getSubCategories(currentQuery);
+            if(currentQuery.equals("Vocab")){
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Would you like to edit or add this topic?");
+                builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //ADD TOPICS
+                        db.updateCurrent(listTag, (byte) 1);
+                        displayList = db.getTopicsBySubCategory(currentQuery);
+                        Log.e("List ", displayList.toString());
+                        while (displayList.size() == 0) {
+                            currentQuery = queryHistory.pop();
+                            if (currentQuery.equals("Categories")) {
+                                displayList = db.getAllCategories();
+                                addTopicsDisplay.addFooterView(createCustomQuestions);
+                            } else {
+                                displayList = db.getSubCategories(currentQuery);
+                            }
+                            Log.e("List ", displayList.toString());
+                        }
+                    }
+                });
+                builder.setNegativeButton("Edit", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Log.e("List Tag", listTag);
+                        editQuestionSet(listTag);
+                    }
+                });
+                builder.show();
+            }
+            else {
+                //ADD TOPICS
+                db.updateCurrent(listTag, (byte) 1);
+                displayList = db.getTopicsBySubCategory(currentQuery);
+                while (displayList.size() == 0) {
+                    currentQuery = queryHistory.pop();
+                    if (currentQuery.equals("Categories")) {
+                        displayList = db.getAllCategories();
+                        addTopicsDisplay.addFooterView(createCustomQuestions);
+                    } else {
+                        displayList = db.getSubCategories(currentQuery);
+                    }
                 }
             }
         }

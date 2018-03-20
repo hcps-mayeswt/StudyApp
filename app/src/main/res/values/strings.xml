@@ -26,7 +26,7 @@
     <string name="term">Term</string>
     <string name="definition">Definition</string>
     <string name="custom_q_set">Custom Question Set</string>
-    <string name="term_empty_state_header">On this page you can create custom study sets by creating question/answer pairs!</string>
+    <string name="term_empty_state_header">Create custom question sets</string>
     <string name="term_empty_state_hint">Use the plus button to create question/answer pairs.</string>
     <!--Strings for study questions page-->
     <string name="raw_number">%1$d</string>

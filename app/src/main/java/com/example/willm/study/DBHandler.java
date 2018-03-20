@@ -177,8 +177,8 @@ public class DBHandler extends SQLiteOpenHelper {
     public List<String> getTopicsByCategory(String cat){
         List<String> topics = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_TOPICS + " WHERE " + KEY_TOPIC_CAT + "='" + cat + "' OR "
-                + KEY_SUB_CAT + "='" + cat + "'", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_TOPICS + " WHERE " + KEY_TOPIC_CAT + "='" + cat + "' AND "
+                + KEY_CURRENT + "=0" + " OR " + KEY_SUB_CAT + "='" + cat + "'" + " AND " + KEY_CURRENT + "=0" , null);
         if(cursor.moveToFirst()){
             do {
                 topics.add(cursor.getString(1));
@@ -229,6 +229,39 @@ public class DBHandler extends SQLiteOpenHelper {
             termVals.put(KEY_DEFINITION, definition);
             db.insert(TABLE_VOCAB, null, termVals);
         }
+        db.close();
+    }
+    public void editVocabTopic(String setTitle, HashMap<String, String> terms){
+        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase reading = this.getReadableDatabase();
+        Cursor cursor = reading.rawQuery("SELECT " + KEY_ID + " FROM " + TABLE_TOPICS + " WHERE " + KEY_NAME + "='" +
+                setTitle + "'", null);
+        String id = "";
+        if(cursor.moveToFirst())
+            id = cursor.getString(0);
+        db.delete(TABLE_VOCAB,KEY_SET + "=?", new String[]{id});
+        Log.e("Creating Vocab", terms.toString() + " " + id);
+        for (String definition : terms.keySet()){
+            Log.e("Creating Vocab", definition);
+            String term = terms.get(definition);
+            ContentValues termVals = new ContentValues();
+            termVals.put(KEY_SET, id);
+            termVals.put(KEY_TERM, term);
+            termVals.put(KEY_DEFINITION, definition);
+            db.insert(TABLE_VOCAB, null, termVals);
+        }
+        db.close();
+    }
+    public void deleteDBTopic(String setTitle){
+        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase reading = this.getReadableDatabase();
+        Cursor cursor = reading.rawQuery("SELECT " + KEY_ID + " FROM " + TABLE_TOPICS + " WHERE " + KEY_NAME + "='" +
+                setTitle + "'", null);
+        String id = "";
+        if(cursor.moveToFirst())
+            id = cursor.getString(0);
+        db.delete(TABLE_VOCAB,KEY_SET + "=?", new String[]{id});
+        db.delete(TABLE_TOPICS, KEY_ID + "=?", new String[]{id});
         db.close();
     }
     //Get vocab set from vocab table

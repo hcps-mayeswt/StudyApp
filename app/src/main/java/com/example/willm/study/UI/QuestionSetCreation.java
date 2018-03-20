@@ -60,6 +60,10 @@ public class QuestionSetCreation extends AppCompatActivity {
     private LinearLayout emptyState;
     private FloatingActionButton submitButton;
     private MyTouchListener onTouchListener;
+    private FrameLayout content;
+    private FloatingActionButton removeButton;
+    private TextView header;
+    String list;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,10 +73,31 @@ public class QuestionSetCreation extends AppCompatActivity {
         listOfQuestions = new ArrayList<>();
         emptyState = findViewById(R.id.term_empty_state);
         submitButton = findViewById(R.id.submit_button);
+        removeButton = findViewById(R.id.remove_button);
+        header = findViewById(R.id.custom_questions_header);
         onTouchListener = new MyTouchListener();
         onTouchListener.setActivity(this);
         onTouchListener.setContext(this);
+        content = findViewById(R.id.custom_question_set_content);
+        list = getIntent().getStringExtra("vocabList");
+        getData();
         updateList();
+    }
+    public void getData(){
+        if(list != null){
+            DBHandler db = new DBHandler(this);
+            ArrayList<HashMap<String, String>> temp = db.getVocabTopic(list);
+            for(HashMap<String, String> term : temp){
+                questions.put(term.get("def"), term.get("term"));
+                HashMap<String, String> question = new HashMap<>();
+                question.put(term.get("def"), term.get("term"));
+                listOfQuestions.add(question);
+                header.setText(list);
+            }
+        }
+        else{
+            removeButton.setVisibility(View.INVISIBLE);
+        }
     }
 
     public void updateList(){
@@ -82,10 +107,19 @@ public class QuestionSetCreation extends AppCompatActivity {
         if(listOfQuestions.size() == 0){
             //Show empty state
             emptyState.setVisibility(View.VISIBLE);
+            //Raise content
+            float elevInPix = TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP,
+                    4.0f,
+                    getResources().getDisplayMetrics()
+            );
+            content.setElevation(elevInPix);
         }
         else{
             //Hide empty state
             emptyState.setVisibility(View.INVISIBLE);
+            //Lower content
+            content.setElevation(0);
         }
         //Change color of submit set when large enough
         if(listOfQuestions.size() >= 5){
@@ -177,8 +211,8 @@ public class QuestionSetCreation extends AppCompatActivity {
         builder.setTitle("Enter Term and Definition");
         // Set up the input
         // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-        def.setInputType(InputType.TYPE_CLASS_TEXT);
-        term.setInputType(InputType.TYPE_CLASS_TEXT);
+        def.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
+        term.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
         //Give hints
         term.setHint(R.string.answer_hint);
         def.setHint(R.string.question_hint);
@@ -224,6 +258,26 @@ public class QuestionSetCreation extends AppCompatActivity {
         builder.show();
     }
 
+    public void deleteSet(View v){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Are you sure you want to permanently delete this set?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                DBHandler db = new DBHandler(getApplicationContext());
+                db.deleteDBTopic(list);
+                goHome();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.show();
+    }
+
     public void goHome(){
         startActivity(new Intent(QuestionSetCreation.this, TopicActivity.class));
         finish();
@@ -231,7 +285,7 @@ public class QuestionSetCreation extends AppCompatActivity {
 
     public void createSet(View v){
         if(questions.keySet().size() < 5){
-            Toast.makeText(this, "You need at least 5 items", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "You need at least 5 terms", Toast.LENGTH_LONG).show();
         }
         else{
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -239,7 +293,8 @@ public class QuestionSetCreation extends AppCompatActivity {
             // Set up the input
             final EditText input = new EditText(this);
             // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-            input.setInputType(InputType.TYPE_CLASS_TEXT);
+            input.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS);
+            input.setText(list);
             builder.setView(input);
             Log.e("Creating Vocab", questions.toString());
             //Set up the buttons
@@ -252,12 +307,22 @@ public class QuestionSetCreation extends AppCompatActivity {
                         }
                         else{
                             DBHandler db = new DBHandler(getApplicationContext());
-                            if(db.getVocabTopic(input.getText().toString()).size() != 0){
+                            if(db.getVocabTopic(input.getText().toString()).size() != 0 && !list.equals(input.getText().toString())){
                                 Toast.makeText(getApplicationContext(), "That name is already taken", Toast.LENGTH_SHORT).show();
                             }
-                            else {
+                            else if(db.getVocabTopic(input.getText().toString()).size() == 0) {
                                 db.addVocabTopic(input.getText().toString(), questions);
-                                goHome();
+                                list = input.getText().toString();
+                                header.setText(list);
+                                Toast.makeText(getApplicationContext(), "Set saved as " + list, Toast.LENGTH_SHORT).show();
+                                removeButton.setVisibility(View.VISIBLE);
+                            }
+                            else{
+                                db.editVocabTopic(input.getText().toString(), questions);
+                                list = input.getText().toString();
+                                header.setText(list);
+                                Toast.makeText(getApplicationContext(), "Set saved as " + list, Toast.LENGTH_SHORT).show();
+                                removeButton.setVisibility(View.VISIBLE);
                             }
                         }
                     //}catch(Exception e){
@@ -316,6 +381,14 @@ class MyTouchListener implements View.OnTouchListener
                 action_up_x = 0;
                 difference = 0;
                 break;
+            case MotionEvent.ACTION_CANCEL:
+                calcuateDifference(v, position);
+                action_down_x = 0;
+                action_up_x = 0;
+                difference = 0;
+                break;
+            default:
+                Log.e("action", action + "");
         }
         return true;
     }
@@ -324,7 +397,7 @@ class MyTouchListener implements View.OnTouchListener
         Resources r = mContext.getResources();
         int px = (int) TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,
-                Math.min(startPoint - difference/5, 0),
+                Math.max(Math.min(startPoint - difference/5, 0), -85),
                 r.getDisplayMetrics()
         );
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
@@ -337,7 +410,7 @@ class MyTouchListener implements View.OnTouchListener
     }
 
     private void calcuateDifference(final View v, final int position) {
-        if (difference < -400) {
+        if (difference < -150) {
             ImageButton removeButton = v.findViewById(R.id.term_remove);
             removeButton.setTag(position);
             removeButton.setOnClickListener(new View.OnClickListener() {
@@ -354,7 +427,7 @@ class MyTouchListener implements View.OnTouchListener
             params.setMargins(0, 0, 0, 0);
             removeButton.setLayoutParams(params);
         }
-        else if(difference > 15){
+        else if(difference > 150){
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT

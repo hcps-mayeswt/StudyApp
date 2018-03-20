@@ -8,8 +8,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/remove_topics_50dp"
+        android:tint="#FFFFFF"
         android:layout_gravity="center_vertical"
-        android:background="@color/bg"
+        android:background="@color/topicsAccent"
         android:padding="@dimen/fab_margin"
         android:layout_marginLeft="-85dp"
         android:id="@id/term_remove"/>
@@ -43,7 +44,7 @@
             android:text=""
             android:ellipsize="end"
             android:singleLine="false"
-            android:textColor="@color/colorPrimary"
+            android:textColor="#000000"
             android:textSize="14sp"
             android:textStyle="normal" />
     </LinearLayout>

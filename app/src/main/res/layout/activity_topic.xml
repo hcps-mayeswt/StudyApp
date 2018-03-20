@@ -29,7 +29,8 @@
         <ListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/current_topics_list"/>
+            android:id="@+id/current_topics_list"
+            android:paddingTop="8dp"/>
         <!--Empty State-->
         <LinearLayout
             android:layout_width="match_parent"

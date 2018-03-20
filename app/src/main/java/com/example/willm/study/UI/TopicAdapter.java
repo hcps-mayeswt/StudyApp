@@ -89,17 +89,12 @@ public class TopicAdapter extends BaseAdapter {
             });
         }else {
             ImageButton removeButton = rowView.findViewById(R.id.topic_list_remove);
-            TextView questionsCorrect = rowView.findViewById(R.id.topic_list_correct_questions);
-            TextView questionsAttempted = rowView.findViewById(R.id.topic_list_attempted_questions);
-
             removeButton.setImageDrawable(mContext.getDrawable(R.drawable.remove_topics_50dp));
             removeButton.setTag(topic);
-            questionsCorrect.setText("");
-            questionsAttempted.setText("");
             removeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.e("TopicFactory Removal", "Removing");
+                    Log.e("Topic Removal", "Removing");
                     DBHandler db = new DBHandler(mContext);
                     db.updateCurrent((String) v.getTag(), (byte) 0);
                     mDataSource.remove(v.getTag());

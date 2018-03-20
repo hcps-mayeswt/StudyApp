@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,6 +8,7 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
+    android:background="@color/bg"
     tools:context="com.example.willm.study.UI.QuestionSetCreation"
     android:orientation="vertical">
 
@@ -23,46 +24,57 @@
             android:fontFamily="serif-medium"
             android:textSize="36sp"
             android:text="@string/custom_q_set"
-            android:textColor="#FFFFFF"/>
+            android:textColor="#FFFFFF"
+            android:paddingBottom="10dp"
+            android:id="@+id/custom_questions_header"/>
     </FrameLayout>
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="46dp"
+        android:id="@+id/custom_question_set_content">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <ListView
+                android:id="@+id/termList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="8dp"
                 android:paddingBottom="8dp"
-                android:id="@+id/termList"/>
+                android:paddingTop="8dp" />
         </LinearLayout>
         <!--Empty State-->
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
+            android:layout_width="350dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="wrap_content"
             android:id="@+id/term_empty_state"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@drawable/custom_questions_empty_state_material"
+            android:paddingTop="30dp"
+            android:paddingBottom="40dp"
+            android:elevation="5dp">
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="2"
+                android:layout_height="wrap_content"
                 android:text="@string/term_empty_state_header"
-                android:textColor="#000000"
-                android:textSize="40sp"
-                android:gravity="center"/>
+                android:textColor="#FFFFFF"
+                android:textSize="26sp"
+                android:gravity="center"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"/>
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:text="@string/term_empty_state_hint"
-                android:textColor="#000000"
-                android:textSize="32sp"
-                android:gravity="center_horizontal"/>
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:gravity="center_horizontal"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"/>
         </LinearLayout>
         <android.support.design.widget.FloatingActionButton
             android:layout_width="wrap_content"
@@ -76,6 +88,16 @@
         <android.support.design.widget.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:src="@drawable/ic_remove_black_24dp"
+            android:id="@+id/remove_button"
+            android:tint="@color/bg"
+            app:backgroundTint="@color/topicsAccent"
+            android:layout_gravity="top|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:onClick="deleteSet"/>
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:src="@drawable/ic_check_black_24dp"
             android:id = "@+id/submit_button"
             app:backgroundTint="@color/colorPrimary"
@@ -84,4 +106,4 @@
             android:onClick="createSet"
             android:layout_margin="@dimen/fab_margin"/>
     </FrameLayout>
-</LinearLayout>
+</FrameLayout>
