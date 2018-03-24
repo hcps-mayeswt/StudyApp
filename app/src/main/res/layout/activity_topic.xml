@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -20,51 +20,69 @@
         android:textColor="#FFFFFF"
         android:textSize="36sp"
         android:textStyle="bold"
-        android:elevation="3dp"/>
+        android:elevation="3dp"
+        android:id="@+id/topic_header"/>
+
     <FrameLayout
+        android:id="@+id/topic_list_spot"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:id="@+id/topic_list_spot">
+        android:layout_height="match_parent"
+        android:layout_marginTop="56dp"
+        android:layout_marginBottom="50dp">
+
         <ListView
+            android:id="@+id/current_topics_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/current_topics_list"
-            android:paddingTop="8dp"/>
+            android:paddingTop="8dp" />
         <!--Empty State-->
         <LinearLayout
+            android:id="@+id/topics_empty_state"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="6dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
             android:orientation="vertical"
-            android:id="@+id/topics_empty_state">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/topic_empty_state_header"
-                android:id="@+id/topics_empty_state_header"
-                android:textSize="32sp"
-                android:textColor="@color/colorPrimary"
-                android:gravity="center"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/topic_empty_state_add_topics_hint"
-                android:id="@+id/topics_empty_state_text"
-                android:textSize="26sp"
-                android:textColor="@color/colorPrimary"
-                android:gravity="center"/>
+            android:background="@drawable/custom_questions_empty_state_material"
+            android:elevation="3dp">
 
-            <ImageButton
-                android:id="@+id/add_topics"
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/topics_empty_state_header"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@null"
-                android:src="@drawable/add_topics_large"
-                android:onClick="goToAddTopics"
-                android:layout_marginTop="10dp"/>
+                android:gravity="center"
+                android:text="@string/topic_empty_state_header"
+                android:textColor="#FFFFFF"
+                android:textSize="32sp" />
+
+            <TextView
+                android:id="@+id/topics_empty_state_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/topic_empty_state_add_topics_hint"
+                android:textColor="#FFFFFF"
+                android:textSize="26sp" />
         </LinearLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="100dp"
+            android:id="@+id/add_topics"
+            android:layout_gravity="center"
+            android:layout_height="100dp"
+            android:backgroundTint="@color/topicsMain"
+            android:onClick="goToAddTopics"
+            android:padding="@dimen/fab_margin"
+            android:src="@drawable/ic_add_black_24dp"
+            android:tint="@color/bg"
+            android:foregroundGravity="center"/>
     </FrameLayout>
+
     <!--Nav Bar-->
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
@@ -72,7 +90,7 @@
         android:layout_gravity="bottom"
         android:orientation="horizontal"
         android:id="@+id/nav_bar">
-        TopicFactoryopic Nav Item-->
+        <!--Topic Nav Item-->
         <TextView
             android:id="@+id/topic_nav_bar"
             android:layout_width="0dp"
@@ -126,4 +144,4 @@
             android:background="@drawable/question_settings_bg"/>
     </LinearLayout>
 
-</LinearLayout>
+</FrameLayout>

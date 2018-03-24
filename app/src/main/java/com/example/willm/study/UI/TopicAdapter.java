@@ -66,7 +66,7 @@ public class TopicAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         final TopicAdapter adapter = this;
         // Get view for row item
-        View rowView;
+        final View rowView;
         if(addTopics){
             rowView = mInflater.inflate(R.layout.add_list_item_topic, parent, false);
         }else{
@@ -90,20 +90,12 @@ public class TopicAdapter extends BaseAdapter {
             });
         }else {
             ImageButton removeButton = rowView.findViewById(R.id.topic_list_remove);
-            removeButton.setImageDrawable(mContext.getDrawable(R.drawable.remove_topics_50dp));
-            removeButton.setTag(topic);
+            rowView.setTag(topic);
             removeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Log.e("Topic Removal", "Removing");
-                    DBHandler db = new DBHandler(mContext);
-                    db.updateCurrent((String) v.getTag(), (byte) 0);
-                    mDataSource.remove(v.getTag());
-                    if (db.getCurrentTopics().size() == 0) {
-                        topicActivity.showEmptyState();
-                    } else {
-                        adapter.notifyDataSetChanged();
-                    }
+                    topicActivity.remove(rowView);
                 }
             });
         }
