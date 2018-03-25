@@ -1,5 +1,9 @@
 package com.example.willm.study.UI;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -101,25 +105,52 @@ public class QuestionSetCreation extends AppCompatActivity {
     }
 
     public void updateList(){
+        //Show empty state
+        emptyState.setVisibility(View.VISIBLE);
         vocabDisplay.setAdapter(null);
         final TermAdapter currentTopics = new TermAdapter(this, listOfQuestions, this, onTouchListener);
         vocabDisplay.setAdapter(currentTopics);
         if(listOfQuestions.size() == 0){
-            //Show empty state
-            emptyState.setVisibility(View.VISIBLE);
             //Raise content
             float elevInPix = TypedValue.applyDimension(
                     TypedValue.COMPLEX_UNIT_DIP,
                     4.0f,
                     getResources().getDisplayMetrics()
             );
-            content.setElevation(elevInPix);
+            ObjectAnimator growX = ObjectAnimator.ofFloat(emptyState, "scaleX", 1f);
+            growX.setDuration(500);
+            ObjectAnimator growY = ObjectAnimator.ofFloat(emptyState, "scaleY", 1f);
+            growY.setDuration(500);
+            ObjectAnimator lower = ObjectAnimator.ofFloat(content, "elevation", elevInPix);
+            lower.setDuration(500);
+            AnimatorSet animation = new AnimatorSet();
+            animation.playTogether(growX, growY, lower);
+            animation.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    //Show empty state
+                    emptyState.setVisibility(View.VISIBLE);
+                }
+            });
+            animation.start();
         }
         else{
-            //Hide empty state
-            emptyState.setVisibility(View.INVISIBLE);
-            //Lower content
-            content.setElevation(0);
+            ObjectAnimator shrinkX = ObjectAnimator.ofFloat(emptyState, "scaleX", 0.01f);
+            shrinkX.setDuration(500);
+            ObjectAnimator shrinkY = ObjectAnimator.ofFloat(emptyState, "scaleY", 0.01f);
+            shrinkY.setDuration(500);
+            ObjectAnimator lower = ObjectAnimator.ofFloat(content, "elevation", 0);
+            lower.setDuration(500);
+            AnimatorSet animation = new AnimatorSet();
+            animation.playTogether(shrinkX, shrinkY, lower);
+            animation.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    //Hide empty state
+                    emptyState.setVisibility(View.INVISIBLE);
+                }
+            });
+            animation.start();
         }
         //Change color of submit set when large enough
         if(listOfQuestions.size() >= 5){
@@ -130,7 +161,8 @@ public class QuestionSetCreation extends AppCompatActivity {
         }
     }
 
-    public void remove(int i){
+    public void remove(View v){
+        int i = (int)v.getTag();
         HashMap<String, String> question = listOfQuestions.get(i);
         String def = "";
         for (String definition : question.keySet()){
@@ -138,7 +170,20 @@ public class QuestionSetCreation extends AppCompatActivity {
         }
         questions.remove(def);
         listOfQuestions.remove(i);
-        updateList();
+        ObjectAnimator scaleX = ObjectAnimator.ofFloat(v, "scaleX", 0.01f);
+        scaleX.setDuration(250);
+        ObjectAnimator scaleY = ObjectAnimator.ofFloat(v, "scaleY", 0.01f);
+        scaleY.setDuration(250);
+        AnimatorSet animation = new AnimatorSet();
+        animation.playTogether(scaleY, scaleX);
+        animation.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                updateList();
+                super.onAnimationEnd(animation);
+            }
+        });
+        animation.start();
     }
 
     public void addNew(View v, String termAnswer, String defAnswer){
@@ -410,13 +455,13 @@ class MyTouchListener implements View.OnTouchListener
     }
 
     private void calcuateDifference(final View v, final int position) {
-        if (difference < -150) {
+        if (difference < -300) {
             ImageButton removeButton = v.findViewById(R.id.term_remove);
             removeButton.setTag(position);
             removeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
-                    activity.remove((int) v.getTag());
+                public void onClick(View view) {
+                    activity.remove(v);
                 }
             });
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
@@ -427,7 +472,7 @@ class MyTouchListener implements View.OnTouchListener
             params.setMargins(0, 0, 0, 0);
             removeButton.setLayoutParams(params);
         }
-        else if(difference > 150){
+        else if(difference > 300){
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
@@ -442,6 +487,7 @@ class MyTouchListener implements View.OnTouchListener
             params.setMargins(px, 0, 0, 0);
             ImageButton removeButton = v.findViewById(R.id.term_remove);
             removeButton.setLayoutParams(params);
+            removeButton.setOnClickListener(null);
         }
         else{
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
@@ -454,11 +500,15 @@ class MyTouchListener implements View.OnTouchListener
                     startPoint,
                     r.getDisplayMetrics()
             );
-            Log.e("Point to move to", px + " " + startPoint);
             params.setMargins(px, 0, 0, 0);
             ImageButton removeButton = v.findViewById(R.id.term_remove);
             removeButton.setLayoutParams(params);
-            Toast.makeText(mContext, "Swipe Left to Delete", Toast.LENGTH_SHORT).show();
+            if(startPoint == 0) {
+                Toast.makeText(mContext, "Swipe Right", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Toast.makeText(mContext, "Swipe Left to Delete", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }

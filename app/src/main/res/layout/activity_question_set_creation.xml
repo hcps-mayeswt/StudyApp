@@ -81,10 +81,12 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_add_black_24dp"
             android:tint="@color/bg"
+            android:id="@+id/add_term_button"
             app:backgroundTint="@color/topicsMain"
             android:layout_gravity="bottom|start"
             android:layout_margin="@dimen/fab_margin"
-            android:onClick="addNew"/>
+            android:onClick="addNew"
+            android:elevation="3dp"/>
         <android.support.design.widget.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -94,7 +96,8 @@
             app:backgroundTint="@color/topicsAccent"
             android:layout_gravity="top|end"
             android:layout_margin="@dimen/fab_margin"
-            android:onClick="deleteSet"/>
+            android:onClick="deleteSet"
+            android:elevation="3dp"/>
         <android.support.design.widget.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -104,6 +107,7 @@
             android:tint="@color/bg"
             android:layout_gravity="bottom|end"
             android:onClick="createSet"
-            android:layout_margin="@dimen/fab_margin"/>
+            android:layout_margin="@dimen/fab_margin"
+            android:elevation="3dp"/>
     </FrameLayout>
 </FrameLayout>
