@@ -87,6 +87,7 @@ public class QuestionSetCreation extends AppCompatActivity {
         getData();
         updateList();
     }
+
     public void getData(){
         if(list != null){
             DBHandler db = new DBHandler(this);
