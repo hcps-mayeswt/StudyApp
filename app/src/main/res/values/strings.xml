@@ -32,13 +32,14 @@
     <string name="raw_number">%1$d</string>
     <string name="last_answer">The answer to the last question was %1$s</string>
     <string name="answer_the_following">Answer the following questions to continue accessing this app.</string>
-    <string name="cont">Submit</string>
+    <string name="cont">Check Answer</string>
     <string name="zero">0</string>
     <string name="streak">Streak:</string>
     <string name="attempted">Attempted:</string>
     <string name="correct">Correct:</string>
     <string name="answer">Answer:</string>
-    <string name="answer_here">Type the answer here</string>
+    <string name="answer_here">Type your answer here</string>
+
 
     <!-- Strings related to Settings -->
     <string name="question_requirements">Question Requirements</string>
@@ -48,7 +49,9 @@
     <string name="primary_req">Primary Requirements</string>
     <string name="secondary_req">Secondary Requirements</string>
     <string name="unlock_dur">Unlock Duration</string>
-
+    <string name="req_correct"># Correct</string>
+    <string name="req_attempted"># Attempted</string>
+    <string name="req_streak"># Correct In-A-Row</string>
     <!-- Unlock Times Arrays-->
     <string-array name="pref_unlock_dur_titles">
         <item>10 Minutes</item>
@@ -66,15 +69,15 @@
     </string-array>
     <!-- Requirement Arrays-->
     <string-array name="pref_req_types">
-        <item># Attempted</item>
-        <item># Correct</item>
-        <item># Correct In-A-Row</item>
+        <item>@string/req_attempted</item>
+        <item>@string/req_correct</item>
+        <item>@string/req_streak</item>
     </string-array>
 
     <string-array name="pref_req_types_none">
-        <item># Attempted</item>
-        <item># Correct</item>
-        <item># Correct In-A-Row</item>
+        <item>@string/req_attempted</item>
+        <item>@string/req_correct</item>
+        <item>@string/req_streak</item>
         <item>None</item>
     </string-array>
 

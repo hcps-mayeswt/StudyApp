@@ -34,7 +34,7 @@ public class QuestionSettingsHandler {
         Log.e("Attempted", attempts + "");
         Log.e("Attempted", correct + "");
         switch(primaryReqType){
-            case "Number Attempted":
+            case "# Attempted":
                 if(attempts >= primaryReq) return true;
                 break;
             case "# Correct":

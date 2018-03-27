@@ -11,11 +11,11 @@
 
 
         <ListPreference
-            android:defaultValue="# Attempted"
+            android:defaultValue="@string/req_attempted"
             android:entries="@array/pref_req_types"
             android:entryValues="@array/pref_req_types"
             android:key="primary_req_type"
-            android:title="Primary Requirement Type" />
+            android:title="Primary Requirement Type"/>
         <ListPreference
             android:defaultValue="1"
             android:entries="@array/pref_reqs"

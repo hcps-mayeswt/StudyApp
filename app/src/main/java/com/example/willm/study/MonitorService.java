@@ -27,64 +27,6 @@ public class MonitorService extends Service {
 
     private DBHandler db;
 
-    private final Runnable appTrackerHelper = new Runnable(){
-        @Override
-        public void run(){
-            ArrayList<HashMap<String, String>> currentTopics = db.getCurrentTopics();
-            //Get the time when the lockout screen should next be displayed
-            SharedPreferences prefs = getSharedPreferences(getString(R.string.pref), MODE_PRIVATE);
-            long displayTime = prefs.getLong(getString(R.string.display_time), 0);
-            //If we should display the lockout app, start looking for apps that are running
-            if(System.currentTimeMillis() >= displayTime && currentTopics != null && currentTopics.size() > 0) {
-                String currentApp = "NULL";//The app that is currently being used
-                //The preferred method only works in Lollipop or later
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                    //Get the apps usage stats tracker
-                    UsageStatsManager usm = (UsageStatsManager) getSystemService(Context.USAGE_STATS_SERVICE);
-                    if (usm != null) {
-                        //Current time
-                        long time = System.currentTimeMillis();
-
-                        //Get the apps that have been used over the past 10 seconds
-                        //This list includes the apps homescreen
-                        List<UsageStats> appList = usm.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, time - 10 * 1000, time);
-                        //Make sure we have a list of apps
-                        if (appList != null && appList.size() > 0) {
-                            //Sort all of the apps based on when they were last used
-                            SortedMap<Long, UsageStats> mySortedMap = new TreeMap<>();
-                            for (UsageStats usageStats : appList) {
-                                if (usageStats.getLastTimeStamp() - usageStats.getFirstTimeStamp() > 5000) {
-                                    mySortedMap.put(usageStats.getLastTimeUsed(), usageStats);
-                                }
-                            }
-                            //Check to make sure the map isn't empty
-                            if (!mySortedMap.isEmpty()) {
-                                //The current app is the most recently used app
-                                currentApp = mySortedMap.get(mySortedMap.lastKey()).getPackageName();
-                                Log.e("Other App Monitoring", "Foreground " + (mySortedMap.get(mySortedMap.lastKey()).getLastTimeStamp() - mySortedMap.get(mySortedMap.lastKey()).getFirstTimeStamp()));
-                            }
-                        }
-                    }
-                } else {
-                    //On pre-lollipop phones get a list of all currently running activities
-                    ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-                    if (am != null) {
-                        List<ActivityManager.RunningAppProcessInfo> tasks = am.getRunningAppProcesses();
-                        //The first app is the currently running app
-                        currentApp = tasks.get(0).processName;
-                    }
-                }
-                Log.e("Other App Monitoring", "Current App in foreground is: " + currentApp);
-                if (!currentApp.contains("willm.study")) {
-                    mHandler.postDelayed(appTracker, 5000);
-                }
-                else{
-                    mHandler.postDelayed(appTrackerHelper, 5000);
-                }
-            }
-        }
-    };
-
     private final Runnable appTracker = new Runnable(){
         @Override
         public void run(){
@@ -142,12 +84,7 @@ public class MonitorService extends Service {
                     startActivity(presentQuestions);
                 }
                 Log.e("Other App Monitoring", "Current App in foreground is: " + currentApp);
-                if(!currentApp.contains("willm.study")){
-                    mHandler.postDelayed(appTracker, REPEAT_INTERVAL);
-                }
-                else{
-                    mHandler.postDelayed(appTrackerHelper, REPEAT_INTERVAL);
-                }
+                mHandler.postDelayed(appTracker, REPEAT_INTERVAL);
             }
             else {
                 //Repeat the check after a delay
