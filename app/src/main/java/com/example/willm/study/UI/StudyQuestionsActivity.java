@@ -1,11 +1,16 @@
 package com.example.willm.study.UI;
 
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -34,6 +39,8 @@ public class StudyQuestionsActivity extends AppCompatActivity {
     int attempted, correct, inARow;
     float defaultTextSize;
 
+    private FrameLayout correctFrame, incorrectFrame;
+
     DBHandler db;
 
     private TextView numCorrect, numAttempted, numInARow, lastAnswer, questionText, explanation, answerGuide;
@@ -46,6 +53,8 @@ public class StudyQuestionsActivity extends AppCompatActivity {
 
     private FrameLayout userInputLayout;
 
+    private Button continueButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +65,9 @@ public class StudyQuestionsActivity extends AppCompatActivity {
         explanation.setHeight((int)(3.0/16.0 * getResources().getDisplayMetrics().widthPixels));
         Log.e("Setting Height", "Height " + getResources().getDisplayMetrics().widthPixels);
         //Find all views I need
+        correctFrame = findViewById(R.id.correctFeedback);
+        incorrectFrame = findViewById(R.id.incorrectFeedback);
+        continueButton = findViewById(R.id.continueButton);
         questionText = findViewById(R.id.question);
         answerLayout = findViewById(R.id.answerLayout);
         answerGuide = findViewById(R.id.answerGuide);
@@ -66,6 +78,28 @@ public class StudyQuestionsActivity extends AppCompatActivity {
         neededStreak = findViewById(R.id.numInARowGoal);
         //Generate the first question
         getNextQuestion();
+        //Set listener to change button color
+        userInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(editable == null || editable.toString().equals("")){
+                    continueButton.setBackground(getResources().getDrawable(R.drawable.submit_button_background_grey));
+                }
+                else{
+                    continueButton.setBackground(getResources().getDrawable(R.drawable.submit_button_background));
+                }
+            }
+        });
         //Display the goals
         updateGoals();
         resetTime = QuestionSettingsHandler.getUnlockDuration(this);
@@ -174,12 +208,15 @@ public class StudyQuestionsActivity extends AppCompatActivity {
             if (userAnswer.equals(correctAnswer)) {
                 correct++;
                 inARow++;
+                animateFeedback(correctFrame);
             } else {
                 inARow = 0;
+                animateFeedback(incorrectFrame);
             }
             updateDisplays();
             Log.e("Question Displaying", userAnswer);
             answerInput.setText("");
+            continueButton.setBackground(getResources().getDrawable(R.drawable.submit_button_background_grey));
             if (QuestionSettingsHandler.passedReq(this, attempted, correct, inARow)) {
                 //Write the next time that this needs to be displayed on
                 SharedPreferences prefs = getSharedPreferences(getString(R.string.pref), MODE_PRIVATE);
@@ -208,6 +245,15 @@ public class StudyQuestionsActivity extends AppCompatActivity {
         else{
             Toast.makeText(this, "Please give an answer", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void animateFeedback(FrameLayout frame){
+        //correctFrame.setVisibility(View.VISIBLE);
+        ObjectAnimator animation = ObjectAnimator.ofInt(frame, "visibility", View.VISIBLE );
+        animation.setDuration(150);
+        animation.setRepeatCount(1);
+        animation.setRepeatMode(ValueAnimator.REVERSE);
+        animation.start();
     }
 
     //Update all the helper texts

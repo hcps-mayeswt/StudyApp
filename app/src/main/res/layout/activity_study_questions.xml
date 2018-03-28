@@ -209,5 +209,66 @@
         android:paddingLeft="8dp"
         android:onClick="moveOn"
         android:elevation="3dp"
-        android:background="@drawable/submit_button_background"/>
+        android:background="@drawable/submit_button_background_grey"/>
+    <!--Correct background-->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/correctFeedback"
+        android:visibility="invisible">
+        <TextView
+            android:layout_width="10dp"
+            android:layout_height="match_parent"
+            android:text=""
+            android:background="@drawable/correct_bg"/>
+        <TextView
+            android:layout_width="10dp"
+            android:layout_height="match_parent"
+            android:text=""
+            android:background="@drawable/correct_bg"
+            android:layout_gravity="end"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:text=""
+            android:background="@drawable/correct_bg"
+            android:layout_gravity="top"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:text=""
+            android:background="@drawable/correct_bg"
+            android:layout_gravity="bottom"/>
+    </FrameLayout>
+    <!--Incorrect background-->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/incorrectFeedback"
+        android:visibility="invisible">
+        <TextView
+            android:layout_width="10dp"
+            android:layout_height="match_parent"
+            android:text=""
+            android:background="@drawable/incorrect_bg"/>
+        <TextView
+            android:layout_width="10dp"
+            android:layout_height="match_parent"
+            android:text=""
+            android:background="@drawable/incorrect_bg"
+            android:layout_gravity="end"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:text=""
+            android:background="@drawable/incorrect_bg"
+            android:layout_gravity="top"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:text=""
+            android:background="@drawable/incorrect_bg"
+            android:layout_gravity="bottom"/>
+    </FrameLayout>
+
 </RelativeLayout>
