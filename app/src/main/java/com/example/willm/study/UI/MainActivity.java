@@ -6,9 +6,11 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.TimeInterpolator;
 import android.app.Dialog;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
@@ -34,6 +36,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.willm.study.AppSettingsHandler;
+import com.example.willm.study.AutoStart;
 import com.example.willm.study.DBHandler;
 import com.example.willm.study.MonitorService;
 import com.example.willm.study.QuestionSettingsHandler;
@@ -51,24 +54,36 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //Record boot receiver
+        final ComponentName onBootReceiver = new ComponentName(getApplication().getPackageName(), AutoStart.class.getName());
+        if (getPackageManager().getComponentEnabledSetting(onBootReceiver) != PackageManager.COMPONENT_ENABLED_STATE_ENABLED)
+            getPackageManager().setComponentEnabledSetting(onBootReceiver, PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
         //Start the tracking service
         MonitorService.start(this);
         //Set default values for settings
         PreferenceManager.setDefaultValues(this, R.xml.questions_pref_general, false);
         //Ensure that all needed variables for the app blocking functionality are present
         SharedPreferences prefs = getSharedPreferences(getString(R.string.pref), MODE_PRIVATE);//Get preferences
+        boolean tutorialShown = prefs.getBoolean(getString(R.string.tutorial_shown), false);
         long displayTime = prefs.getLong(getString(R.string.display_time), Long.MAX_VALUE);//Check if the display time is set
         //Check to make sure the display time isn't the default value, ie the d
-        //TODO: REMOVE TRUE FLAG
-        if(true || displayTime == Long.MAX_VALUE) {
+        if (displayTime == Long.MAX_VALUE) {
             //Create an editor to set the next display time to 0.
             SharedPreferences.Editor editor = prefs.edit();
             editor.putLong(getString(R.string.display_time), 0);
-            editor.commit();
+            editor.apply();
         }
         mainContentView = findViewById(R.id.contentView);
         wrapper = findViewById(R.id.wrapperView);
-        showTutorial();
+        //TODO: REMOVE ELSE
+        if (!tutorialShown){
+            showTutorial();
+        }
+        else{
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean(getString(R.string.tutorial_shown), false);
+            editor.apply();
+        }
     }
 
     public void showTutorial(){
@@ -431,6 +446,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         animation.start();
+        SharedPreferences prefs = getSharedPreferences(getString(R.string.pref), MODE_PRIVATE);
+        SharedPreferences.Editor edit = prefs.edit();
+        edit.putBoolean(getString(R.string.tutorial_shown), true);
+        edit.apply();
     }
     //Function to display hint text when a user clicks on the center
     public void onCenterClick(View r){

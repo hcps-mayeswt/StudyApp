@@ -1,15 +1,18 @@
 package com.example.willm.study;
 
 import android.app.ActivityManager;
+import android.app.Notification;
 import android.app.Service;
 import android.app.usage.UsageStats;
 import android.app.usage.UsageStatsManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.willm.study.UI.StudyQuestionsActivity;
 
@@ -104,8 +107,15 @@ public class MonitorService extends Service {
     }
 
     @Override
+    public void onCreate(){
+        super.onCreate();
+        startForeground(1,new Notification());
+    }
+
+    @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         db = new DBHandler(this);
+        //Toast.makeText(this, "Hello", Toast.LENGTH_SHORT).show();
         mHandler.post(appTracker);//Start tracking app usage
         super.onStartCommand(intent, flags, startId);
         return START_STICKY;//Return START_STICKY to ensure that this service will continue running even if the app is removed from the app tray
@@ -115,6 +125,10 @@ public class MonitorService extends Service {
     public static void start(Context context) {
         //Start the service
         Intent intent = makeSelfIntent(context);
-        context.startService(intent);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            context.startForegroundService(intent);
+        } else {
+            context.startService(intent);
+        }
     }
 }
