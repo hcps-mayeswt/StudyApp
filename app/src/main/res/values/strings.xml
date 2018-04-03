@@ -1,6 +1,19 @@
 <resources>
     <!-- BETA MESSAGE-->
     <string name="beta">Thank you for participating in the beta tests for this app. This page is not yet complete, please come back at a later update to try it out.</string>
+    <!--Tutorial Strings-->
+    <string name="welcome">Welcome to Study!</string>
+    <string name="explain">This app prevents kids from being distracted by their phones by requiring that they answer study questions before using their apps.</string>
+    <string name="scroll">Scroll below to explore the app\'s functionality.</string>
+    <string name="topic_tutorial_header">The Topics Page</string>
+    <string name="explain_topic">The topics page is where you can view and edit your current topics of study.</string>
+    <string name="explain_topic_2">You can use built in study topics or create your own. Go here first to choose your topics of study.</string>
+    <string name="app_settings_tutorial_header">The App Settings Page</string>
+    <string name="explain_app_settings">The app settings page is where you can control access to the other pages of the app.</string>
+    <string name="explain_app_settings_2">Here, you can set a password that is required to access the app.</string>
+    <string name="question_settings_tutorial_header">The Question Settings Page</string>
+    <string name="explain_question_settings">The question settings page contains settings for unlock requirements.</string>
+    <string name="explain_question_settings_2">You can set when to lock the phone and requirements for unlocking on this page.</string>
     <!--General and Homepage Strings-->
     <string name="app_name">Study!</string>
     <string name="topic">Topics</string>
