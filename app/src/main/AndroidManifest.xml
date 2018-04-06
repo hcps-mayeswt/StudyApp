@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.willm.study"
     android:theme="@style/AppTheme">
-
+    <uses-permission
+        android:name="android.permission.READ_CONTACTS"/>
     <uses-permission
         android:name="android.permission.PACKAGE_USAGE_STATS"
         tools:ignore="ProtectedPermissions" />
@@ -27,7 +28,7 @@
 
         <activity
             android:name=".UI.MainActivity"
-            android:theme="@style/NavTheme"
+            android:theme="@style/Theme.AppCompat"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

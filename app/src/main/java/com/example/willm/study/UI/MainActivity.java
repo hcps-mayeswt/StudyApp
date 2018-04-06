@@ -1,35 +1,28 @@
 package com.example.willm.study.UI;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.animation.TimeInterpolator;
-import android.app.Dialog;
+import android.app.Activity;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.ColorDrawable;
-import android.support.v4.util.ObjectsCompat;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
 import android.view.animation.Transformation;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -39,23 +32,60 @@ import android.widget.Toast;
 
 import com.example.willm.study.AppSettingsHandler;
 import com.example.willm.study.AutoStart;
-import com.example.willm.study.DBHandler;
 import com.example.willm.study.MonitorService;
-import com.example.willm.study.QuestionSettingsHandler;
 import com.example.willm.study.R;
-import com.example.willm.study.Topics.TopicsHandler;
 
-import java.util.HashMap;
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
     private FrameLayout mainContentView;
     private FrameLayout tutorialView;
     private FrameLayout wrapper;
     private int tutorialWindow;
+    final private int MY_PERMISSIONS_REQUEST_PACKAGE_USAGE_STATS = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //Check for permission to track apps
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.PACKAGE_USAGE_STATS)
+                != PackageManager.PERMISSION_GRANTED ) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.READ_CONTACTS)) {
+                Log.e("Should show", "Needs rationale");
+
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+
+            } else {
+                // No explanation needed; request the permission
+                //ActivityCompat.requestPermissions(this,
+                //        new String[]{Manifest.permission.READ_CONTACTS},
+                //        MY_PERMISSIONS_REQUEST_PACKAGE_USAGE_STATS);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+            Log.e("No Permission Granted", "No Permission");
+            // Permission is not granted
+            /*ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.PACKAGE_USAGE_STATS},
+                    MY_PERMISSIONS_REQUEST_PACKAGE_USAGE_STATS);*/
+            TextView text = new TextView(this);
+            String message = "This app requires permission to track app usage. On the following page please scroll down to Study!" +
+                    " and granted usage access.";
+            text.setText(message);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Request Permission");
+            builder.setView(text);
+            builder.setPositiveButton("Grant Permission", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
+                }
+            });
+            builder.show();
+        }
         //Record boot receiver
         final ComponentName onBootReceiver = new ComponentName(getApplication().getPackageName(), AutoStart.class.getName());
         if (getPackageManager().getComponentEnabledSetting(onBootReceiver) != PackageManager.COMPONENT_ENABLED_STATE_ENABLED)
@@ -77,16 +107,38 @@ public class MainActivity extends AppCompatActivity {
         }
         mainContentView = findViewById(R.id.contentView);
         wrapper = findViewById(R.id.wrapperView);
-        //TODO: REMOVE ELSE
         if (!tutorialShown){
             showTutorial();
         }
-        else{
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putBoolean(getString(R.string.tutorial_shown), false);
-            editor.apply();
+    }
+
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_PACKAGE_USAGE_STATS: {
+                // If request is cancelled, the result arrays are empty.
+                if(grantResults.length > 0) Log.e("Results", grantResults[0] + "");
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+
+                } else {
+                    //ActivityCompat.requestPermissions(this,
+                    //        new String[]{Manifest.permission.PACKAGE_USAGE_STATS},
+                    //        MY_PERMISSIONS_REQUEST_PACKAGE_USAGE_STATS);
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request.
         }
     }
+
 
     public void showTutorial(){
         //final Dialog dialog = new Dialog(this);
