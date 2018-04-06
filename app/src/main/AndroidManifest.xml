@@ -4,8 +4,6 @@
     package="com.example.willm.study"
     android:theme="@style/AppTheme">
     <uses-permission
-        android:name="android.permission.READ_CONTACTS"/>
-    <uses-permission
         android:name="android.permission.PACKAGE_USAGE_STATS"
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
