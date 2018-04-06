@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base navigation theme. -->
-    <style name="NavTheme" parent="MyMaterialTheme.Base">
+    <style name="NavTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
     </style>
     <!-- Base application theme. -->

@@ -1,15 +1,15 @@
 <!--Tutorial-->
 <FrameLayout
     android:layout_width="300dp"
-    android:layout_height="400dp"
+    android:layout_height="450dp"
     android:layout_gravity="center"
     android:elevation="3dp"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tutorial">
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:id="@+id/tutorial">
+        android:orientation="horizontal">
         <LinearLayout
             android:layout_width="300dp" android:layout_height="400dp"
             android:id="@+id/home_tutorial"
@@ -249,4 +249,12 @@
             </LinearLayout>
         </LinearLayout>
     </FrameLayout>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
+        android:text="@string/close_tutorial"
+        android:id="@+id/close_tutorial_button"
+        android:backgroundTint="@color/colorPrimaryLight"
+        android:textColor="#FFFFFF"/>
 </FrameLayout>

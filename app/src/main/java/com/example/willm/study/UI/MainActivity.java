@@ -8,6 +8,7 @@ import android.animation.TimeInterpolator;
 import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -30,6 +31,7 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.Transformation;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -93,6 +95,27 @@ public class MainActivity extends AppCompatActivity {
         //dialog.show();
         //dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         tutorialView = getLayoutInflater().inflate(R.layout.tutorial_full, wrapper).findViewById(R.id.tutorial);
+        Button exitTutorial = tutorialView.findViewById(R.id.close_tutorial_button);
+        exitTutorial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+                builder.setTitle("Are you sure you want to exit the tutorial? It cannot be reopened.");
+                builder.setPositiveButton("Exit Tutorial", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        endTutorial();
+                            }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.show();
+            }
+        });
         tutorialView.setVisibility(View.VISIBLE);
         mainContentView.setClickable(false);
         tutorialWindow = 0;

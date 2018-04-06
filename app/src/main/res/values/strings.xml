@@ -15,7 +15,7 @@
     <string name="explain_question_settings">The question settings page contains settings for unlock requirements.</string>
     <string name="explain_question_settings_2">You can set when to lock the phone and requirements for unlocking on this page.</string>
     <string name="tutorial_shown">Tutorial Shown</string>
-    <string name="close_tutorial">Close Tutorial</string>
+    <string name="close_tutorial">Exit Tutorial</string>
     <!--General and Homepage Strings-->
     <string name="app_name">Study!</string>
     <string name="topic">Topics</string>
