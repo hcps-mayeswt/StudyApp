@@ -99,7 +99,8 @@ public class MainActivity extends AppCompatActivity {
         exitTutorial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+                endTutorial();
+                /*AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
                 builder.setTitle("Are you sure you want to exit the tutorial? It cannot be reopened.");
                 builder.setPositiveButton("Exit Tutorial", new DialogInterface.OnClickListener() {
                     @Override
@@ -113,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
                         dialog.cancel();
                     }
                 });
-                builder.show();
+                builder.show();*/
             }
         });
         tutorialView.setVisibility(View.VISIBLE);
