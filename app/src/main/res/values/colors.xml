@@ -4,11 +4,11 @@
     <color name="colorPrimaryLight">#515151</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="topicsMain">#FF2020</color>
-    <color name="topicsAccent">#BB0000</color>
-    <color name="progressMain">#FF7700</color>
-    <color name="questionSettingsMain">#068267</color>
-    <color name="appSettingsMain">#052F5F</color>
+    <color name="topicsMain">#D50000</color>
+    <color name="topicsAccent">#9B0000</color>
+    <color name="progressMain">#FF6F00</color>
+    <color name="questionSettingsMain">#1B5E20</color>
+    <color name="appSettingsMain">#1A237E</color>
     <color name="bg">#EEEEEE</color>
     <color name="colorContinue">#76FF03</color>
 </resources>
