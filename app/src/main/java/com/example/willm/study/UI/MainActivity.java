@@ -6,7 +6,9 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.app.AppOpsManager;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -46,31 +48,20 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //Check for permission to track apps
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.PACKAGE_USAGE_STATS)
-                != PackageManager.PERMISSION_GRANTED ) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.READ_CONTACTS)) {
-                Log.e("Should show", "Needs rationale");
+        boolean granted = false;
+        AppOpsManager appOps = (AppOpsManager) this
+                .getSystemService(Context.APP_OPS_SERVICE);
+        int mode = appOps.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS,
+                android.os.Process.myUid(), this.getPackageName());
 
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-
-            } else {
-                // No explanation needed; request the permission
-                //ActivityCompat.requestPermissions(this,
-                //        new String[]{Manifest.permission.READ_CONTACTS},
-                //        MY_PERMISSIONS_REQUEST_PACKAGE_USAGE_STATS);
-
-                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                // app-defined int constant. The callback method gets the
-                // result of the request.
-            }
+        if (mode == AppOpsManager.MODE_DEFAULT) {
+            granted = (this.checkCallingOrSelfPermission(android.Manifest.permission.PACKAGE_USAGE_STATS) == PackageManager.PERMISSION_GRANTED);
+        } else {
+            granted = (mode == AppOpsManager.MODE_ALLOWED);
+        }
+        //Request permission if not granted
+        if (!granted) {
             Log.e("No Permission Granted", "No Permission");
-            // Permission is not granted
-            /*ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.PACKAGE_USAGE_STATS},
-                    MY_PERMISSIONS_REQUEST_PACKAGE_USAGE_STATS);*/
             TextView text = new TextView(this);
             String message = "This app requires permission to track app usage. On the following page please scroll down to Study!" +
                     " and granted usage access.";
@@ -109,33 +100,6 @@ public class MainActivity extends Activity {
         wrapper = findViewById(R.id.wrapperView);
         if (!tutorialShown){
             showTutorial();
-        }
-    }
-
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_PACKAGE_USAGE_STATS: {
-                // If request is cancelled, the result arrays are empty.
-                if(grantResults.length > 0) Log.e("Results", grantResults[0] + "");
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    // permission was granted, yay! Do the
-                    // contacts-related task you need to do.
-
-                } else {
-                    //ActivityCompat.requestPermissions(this,
-                    //        new String[]{Manifest.permission.PACKAGE_USAGE_STATS},
-                    //        MY_PERMISSIONS_REQUEST_PACKAGE_USAGE_STATS);
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
-                }
-                return;
-            }
-
-            // other 'case' lines to check for other
-            // permissions this app might request.
         }
     }
 

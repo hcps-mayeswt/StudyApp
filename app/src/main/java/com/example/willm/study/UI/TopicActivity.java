@@ -27,6 +27,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.willm.study.DBHandler;
+import com.example.willm.study.MonitorService;
 import com.example.willm.study.R;
 
 import java.lang.reflect.Type;
@@ -72,6 +73,7 @@ public class TopicActivity extends AppCompatActivity {
                 24,
                 getResources().getDisplayMetrics()
         );
+        MonitorService.start(this);
         updateList();
     }
 
@@ -230,6 +232,7 @@ public class TopicActivity extends AppCompatActivity {
     @Override
     public void onRestart() {
         Log.e("Restarted", "Restarted");
+        MonitorService.start(this);
         super.onRestart();
         updateList();
     }
@@ -237,7 +240,7 @@ public class TopicActivity extends AppCompatActivity {
     public void remove(View v){
         final DBHandler db = new DBHandler(getApplicationContext());
         db.updateCurrent((String) v.getTag(), (byte) 0);
-
+        MonitorService.start(this);
         currentTopicsList.remove(v.getTag());
         ObjectAnimator shrinkX = ObjectAnimator.ofFloat(v, "scaleX", 0.01f);
         shrinkX.setDuration(250);

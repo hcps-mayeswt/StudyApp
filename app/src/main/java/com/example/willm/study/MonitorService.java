@@ -24,16 +24,24 @@ import java.util.TreeMap;
 
 public class MonitorService extends Service {
 
-    private static final int REPEAT_INTERVAL = 1000; // 1 sec
+    private static final int REPEAT_INTERVAL = 500; // 1 sec
 
     private Handler mHandler = new Handler();//Handler to repeat the app usage tracking every second
-
+    ArrayList<String> currentTopics;
     private DBHandler db;
+    private final Context mContext = this;
 
     private final Runnable appTracker = new Runnable(){
         @Override
         public void run(){
-            ArrayList<String> currentTopics = db.getCurrentTopics(true);
+             //if(currentTopics == null) {
+                 currentTopics = db.getCurrentTopics(true);
+                 db.close();
+                 db = new DBHandler(mContext);
+             //}
+             //else{
+                 Log.e("Working", currentTopics.toString());
+             //}
             //Get the time when the lockout screen should next be displayed
             SharedPreferences prefs = getSharedPreferences(getString(R.string.pref), MODE_PRIVATE);
             long displayTime = prefs.getLong(getString(R.string.display_time), 0);
@@ -115,6 +123,7 @@ public class MonitorService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         db = new DBHandler(this);
+        currentTopics = null;
         //Toast.makeText(this, "Hello", Toast.LENGTH_SHORT).show();
         mHandler.post(appTracker);//Start tracking app usage
         super.onStartCommand(intent, flags, startId);

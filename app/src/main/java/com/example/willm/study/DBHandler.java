@@ -156,6 +156,7 @@ public class DBHandler extends SQLiteOpenHelper {
             }while(cursor.moveToNext());
         }
         db.close();
+        cursor.close();
         return topics;
     }
     //Get current topics
@@ -171,6 +172,7 @@ public class DBHandler extends SQLiteOpenHelper {
             }while(cursor.moveToNext());
         }
         db.close();
+        cursor.close();
         return topics;
     }
     //Get Topics By Category
@@ -185,6 +187,7 @@ public class DBHandler extends SQLiteOpenHelper {
             }while(cursor.moveToNext());
         }
         db.close();
+        cursor.close();
         return topics;
     }
     //Get Topics By SubCategory
@@ -202,6 +205,7 @@ public class DBHandler extends SQLiteOpenHelper {
             }while(cursor.moveToNext());
         }
         db.close();
+        cursor.close();
         return topics;
     }
 
@@ -230,6 +234,7 @@ public class DBHandler extends SQLiteOpenHelper {
             db.insert(TABLE_VOCAB, null, termVals);
         }
         db.close();
+        cursor.close();
     }
     public void editVocabTopic(String setTitle, HashMap<String, String> terms){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -251,6 +256,7 @@ public class DBHandler extends SQLiteOpenHelper {
             db.insert(TABLE_VOCAB, null, termVals);
         }
         db.close();
+        cursor.close();
     }
     public void deleteDBTopic(String setTitle){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -263,6 +269,7 @@ public class DBHandler extends SQLiteOpenHelper {
         db.delete(TABLE_VOCAB,KEY_SET + "=?", new String[]{id});
         db.delete(TABLE_TOPICS, KEY_ID + "=?", new String[]{id});
         db.close();
+        cursor.close();
     }
     //Get vocab set from vocab table
     public ArrayList<HashMap<String, String>> getVocabTopic(String setTitle){
@@ -284,6 +291,8 @@ public class DBHandler extends SQLiteOpenHelper {
                 results.add(term);
             }while(cursor.moveToNext());
         }
+        cursor.close();
+        db.close();
         return results;
     }
 }
