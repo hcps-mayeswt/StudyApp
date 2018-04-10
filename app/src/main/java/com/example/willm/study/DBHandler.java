@@ -78,7 +78,7 @@ public class DBHandler extends SQLiteOpenHelper {
         addTopic("Long Division", "Math", "Division", 1, 25, db);
         addTopic("Single Step Equations", "Math", "Algebra", 1, 1, db);
         addTopic("Two Step Equations", "Math", "Algebra", 2, 2, db);
-        addTopic("Quadratic Equations", "Math", "Algebra", 3, 3, db);
+        addTopic("Factoring Quadratic Equations", "Math", "Algebra", 3, 3, db);
     }
 
     public ArrayList<String> getSubCategories(String cat){
