@@ -34,14 +34,9 @@ public class MonitorService extends Service {
     private final Runnable appTracker = new Runnable(){
         @Override
         public void run(){
-             //if(currentTopics == null) {
-                 currentTopics = db.getCurrentTopics(true);
-                 db.close();
-                 db = new DBHandler(mContext);
-             //}
-             //else{
-                 Log.e("Working", currentTopics.toString());
-             //}
+            currentTopics = db.getCurrentTopics(true);
+            db.close();
+            db = new DBHandler(mContext);
             //Get the time when the lockout screen should next be displayed
             SharedPreferences prefs = getSharedPreferences(getString(R.string.pref), MODE_PRIVATE);
             long displayTime = prefs.getLong(getString(R.string.display_time), 0);
@@ -87,7 +82,7 @@ public class MonitorService extends Service {
                 }
                 //Ensure that the current app isn't one of a list of excluded apps
                 //TODO: Make this into an actual list, so it is extensible.
-                if (!currentApp.equals("NULL") && !currentApp.contains("com.android") && !currentApp.contains("com.sec.android") && !currentApp.contains("willm.study") && !currentApp.equals("com.android.systemui")) {
+                if (!currentApp.equals("NULL") && (!currentApp.contains("com.android") || currentApp.contains("chrome")) && !currentApp.contains("com.sec.android") && !currentApp.contains("willm.study") && !currentApp.equals("com.android.systemui") && !currentApp.contains("android.contacts")) {
                     //Present the lockout page to the user
                     Intent presentQuestions = new Intent(MonitorService.this, StudyQuestionsActivity.class);
                     //Record the current app so the page can go back to the correct place
