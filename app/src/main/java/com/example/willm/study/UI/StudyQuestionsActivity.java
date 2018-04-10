@@ -34,6 +34,10 @@ public class StudyQuestionsActivity extends AppCompatActivity {
 
     String correctAnswer = "";//The correct answer
 
+    String alternateAnswer = "";//Other answer, used for quadratics
+
+    String currTopic = "";//Current topic being studied
+
     private String lastQuestion;
 
     int attempted, correct, inARow;
@@ -158,6 +162,7 @@ public class StudyQuestionsActivity extends AppCompatActivity {
         int index = (int)(Math.random() * currentTopics.size());
         Log.e("Current topics", index + "");
         String t = currentTopics.get(index).get("name");
+        currTopic = t;
         int min = Integer.parseInt(currentTopics.get(index).get("min"));
         int max = Integer.parseInt(currentTopics.get(index).get("max"));
         //Generate the question
@@ -171,6 +176,13 @@ public class StudyQuestionsActivity extends AppCompatActivity {
         displayQuestion(questionMap.get("question"));
         //Store the correct answer
         correctAnswer = questionMap.get("answer");
+        //Store alternate answers if available
+        if(questionMap.containsKey("answer2")){
+            alternateAnswer = questionMap.get("answer2");
+        }
+        else{
+            alternateAnswer = "";
+        }
         Log.e("Question Displaying", "Correct answer is " + correctAnswer);
         //Set the input type
         if(questionMap.get("answerSigned").equals("")){
@@ -202,10 +214,17 @@ public class StudyQuestionsActivity extends AppCompatActivity {
     public void moveOn(View v){
         //Get the users answer
         EditText answerInput = findViewById(R.id.answer);
-        String userAnswer = answerInput.getText().toString();
+        String userAnswer = answerInput.getText().toString().toLowerCase();
+        correctAnswer = correctAnswer.toLowerCase();
+        alternateAnswer = alternateAnswer.toLowerCase();
+        if(currTopic.contains("Equation")){
+            correctAnswer = correctAnswer.replace(" ", "");
+            alternateAnswer = alternateAnswer.replace(" " , "");
+            userAnswer = userAnswer.replace(" ", "");
+        }
         if(!userAnswer.equals("")) {
             attempted++;
-            if (userAnswer.equals(correctAnswer)) {
+            if (userAnswer.equals(correctAnswer) || (!alternateAnswer.equals("") && userAnswer.equals(alternateAnswer))) {
                 correct++;
                 inARow++;
                 animateFeedback(correctFrame);
@@ -232,12 +251,8 @@ public class StudyQuestionsActivity extends AppCompatActivity {
 
                 }
                 //Remove this activity from the task tray
-                if (android.os.Build.VERSION.SDK_INT >= 21) {
-                    Log.e("Other App Monitoring", "Removing Task");
-                    finishAndRemoveTask();
-                } else {
-                    finish();
-                }
+                Log.e("Other App Monitoring", "Removing Task");
+                finishAndRemoveTask();
             } else {
                 getNextQuestion();
             }

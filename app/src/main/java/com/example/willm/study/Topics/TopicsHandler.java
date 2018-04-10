@@ -23,6 +23,9 @@ public class TopicsHandler {
         else if(topic.contains("Division")){
             factory = new DivisionFactory(topic, minVal, maxVal);
         }
+        else if(topic.contains("Equation")){
+            factory = new AlgebraFactory(topic, minVal, maxVal);
+        }
         else{
             factory = new VocabTopic(topic, c);
         }
